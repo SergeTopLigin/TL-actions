@@ -1,0 +1,14 @@
+name: system_preparing
+
+on:
+  workflow_dispatch:
+  
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: python check preset
+        run: python --version
+      - uses: actions/checkout@v3
+      - name: list current folder
+        run: ls -la
