@@ -14,4 +14,4 @@ jobs:
         run: ls
       - name: Run script
         run: sh proba.py
-        
+        shell: bash
