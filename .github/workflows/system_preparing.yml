@@ -16,9 +16,9 @@ jobs:
         run: ls
       - name: Run script & output in var
         run: |
-          python proba.py > OUTPUT
+          python proba.py > ${{ OUTPUT }}
       - name: Reading output
-        run: echo $OUTPUT
+        run: echo ${{ OUTPUT }}
 
 # запуск скрипта и выгрузка результата в файл (артефакт)
 #      - name: Run script
