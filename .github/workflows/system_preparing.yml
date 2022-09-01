@@ -14,7 +14,7 @@ jobs:
         run: ls
       - name: Run script
         run: |
-          python API_account_data.py > output.log
+          python API_account_data.py > Outputs/output.log
       - name: Upload output file  
         uses: actions/upload-artifact@v3
         with:
