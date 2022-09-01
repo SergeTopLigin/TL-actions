@@ -12,11 +12,11 @@ jobs:
       - uses: actions/checkout@v3
       - name: list current folder
         run: ls
-      - name: Run script and save output
+      - name: Run script
         run: |
           python API_account_data.py > output.log
       - name: Upload output file  
         uses: actions/upload-artifact@v3
         with:
           name: output-log-file
-          path: output.log
+          path: Outputs/output.log
