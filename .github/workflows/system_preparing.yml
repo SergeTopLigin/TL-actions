@@ -7,7 +7,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      ${{ OUTPUT }}: 0
+      OUTPUT: 0
     steps:
       - name: python check preset
         run: python --version
@@ -16,9 +16,9 @@ jobs:
         run: ls
       - name: Run script & output in var
         run: |
-          python proba.py > ${{ OUTPUT }}
+          python proba.py > ${{ env.OUTPUT }}
       - name: Reading output
-        run: echo ${{ OUTPUT }}
+        run: echo "${{ env.OUTPUT }}"
 
 # запуск скрипта и выгрузка результата в файл (артефакт)
 #      - name: Run script
