@@ -6,17 +6,26 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      OUTPUT: empty
     steps:
       - name: python check preset
         run: python --version
       - uses: actions/checkout@v3
       - name: list current folder
         run: ls
-      - name: Run script
+      - name: Run script & output in var
         run: |
-          python API_account_data.py > output.log
-      - name: Upload output file  
-        uses: actions/upload-artifact@v3
-        with:
-          name: output-log-file
-          path: output.log
+          python API_account_data.py > OUTPUT
+      - name: Reading output
+        run: echo $OUTPUT
+
+# запуск скрипта и выгрузка результата в файл (артефакт)
+#      - name: Run script
+#        run: |
+#          python API_account_data.py > output.log
+#      - name: Upload output file  
+#        uses: actions/upload-artifact@v3
+#        with:
+#          name: output-log-file
+#          path: output.log
