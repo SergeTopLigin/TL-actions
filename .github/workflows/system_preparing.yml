@@ -16,7 +16,7 @@ jobs:
         run: ls
       - name: Run script & output in var
         run: |
-          python API_account_data.py > OUTPUT
+          python proba.py > OUTPUT
       - name: Reading output
         run: echo $OUTPUT
 
