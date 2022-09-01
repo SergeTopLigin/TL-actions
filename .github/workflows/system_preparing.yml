@@ -13,5 +13,5 @@ jobs:
       - name: list current folder
         run: ls
       - name: Run script
-        run: proba
+        run: proba.py
         shell: python
