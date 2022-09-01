@@ -13,4 +13,4 @@ jobs:
       - name: list current folder
         run: ls
       - name: Run script
-        run: python proba.py
+        run: python API_account_data.py
