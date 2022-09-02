@@ -18,4 +18,4 @@ jobs:
       - name: list current folder
         run: ls
       - name: open file
-        run: $ cat /file
+        run: cat /file
