@@ -1,1 +1,2 @@
-print('echo "OUTPUT=yellow"')
+import os
+print(os.path.abspath(__file__))
