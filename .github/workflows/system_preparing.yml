@@ -15,20 +15,12 @@ jobs:
         run: ls
       - name: Run script
         run: python proba.py
-      - name: Run script & output in var
-        run: |
-          python proba.py
-          >> $GITHUB_ENV
-      - name: print var
-        run: |
-          echo "${{ env.OUTPUT }}"
-
 # запуск скрипта и выгрузка результата в файл (артефакт)
-#      - name: Run script
-#        run: |
-#          python API_account_data.py > output.log
-#      - name: Upload output file  
-#        uses: actions/upload-artifact@v3
-#        with:
-#          name: output-log-file
-#          path: output.log
+      - name: Run script
+        run: |
+          python API_account_data.py > output.log
+      - name: Upload output file  
+        uses: actions/upload-artifact@v3
+        with:
+          name: output-log-file
+          path: output.log
