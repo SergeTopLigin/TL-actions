@@ -6,8 +6,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      OUTPUT: 0
+    
     steps:
       - name: python check preset
         run: python --version
@@ -17,9 +16,10 @@ jobs:
       - name: Run script
         run: python proba.py
       - name: Run script & output in var
-        run: |
-          cp python proba.py ${{ env.OUTPUT }}
-          echo "${{ env.OUTPUT }}"
+        env:
+          OUTPUT: 
+            'run: python proba.py'
+        run: echo $OUTPUT
 
 # запуск скрипта и выгрузка результата в файл (артефакт)
 #      - name: Run script
