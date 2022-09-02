@@ -17,3 +17,5 @@ jobs:
         run: python proba.py
       - name: list current folder
         run: ls
+      - name: open file
+        run: $ cat /file
