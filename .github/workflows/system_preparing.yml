@@ -17,7 +17,7 @@ jobs:
         run: python proba.py
       - name: Run script & output in var
         run: |
-          python proba.py >> $GITHUB_ENV
+          echo "OUTPUT=yellow" >> $GITHUB_ENV
       - name: print var
         run: |
           echo "${{ env.OUTPUT }}"
