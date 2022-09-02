@@ -1,2 +1,1 @@
-q = 19
-print(q)
+print('echo "OUTPUT=yellow"')
