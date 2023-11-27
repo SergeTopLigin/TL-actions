@@ -1,9 +1,10 @@
 name: shedule
 
 on:
+  push
   #workflow_dispatch:
-  schedule:
-    - cron: '*/5 * * * *'
+  #schedule:
+  #  - cron: '*/5 * * * *'
 
 jobs:
   build:
@@ -11,4 +12,4 @@ jobs:
 
     steps:
       - name: Run a one-line script
-        run: echo Hello, world!
+        run: echo "Hello, world!"
