@@ -8,15 +8,15 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-      - name: python check preset  
-        run: python --version  # проверка версии python, предустановленой на вирт машине
-      - name: repo checkout
-        uses: actions/checkout@v4  # загрузка содержимого репозитория на вирт машину
-      - name: list current folder
-        run: ls  # отобразить содержимое текущей директории (команда терминала Ubuntu)
-     # - name: Run script
-     #   run: python proba.py
-     # - name: list current folder
-     #   run: ls
-     # - name: open file
-     #   run: cat file.txt
+      - name: python check preset  # проверка версии python, предустановленой на вирт машине
+        run: python --version  
+      - name: repo checkout  # загрузка содержимого репозитория на вирт машину
+        uses: actions/checkout@v4  
+      - name: list current folder  # отобразить содержимое текущей директории (команда терминала Ubuntu)
+        run: ls  
+      - name: Run script  # выполнить файл на языке
+        run: python proba.py
+      - name: list current folder  # отобразить содержимое текущей директории (команда терминала Ubuntu)
+        run: ls
+      - name: open file  # открыть содержимое текстового файла (созданного скриптом py)
+        run: cat file.txt
