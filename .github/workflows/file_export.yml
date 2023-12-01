@@ -10,7 +10,7 @@ jobs:
     steps:
       - name: python check preset
         run: python --version
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
      # - name: list current folder
      #   run: ls
      # - name: Run script
