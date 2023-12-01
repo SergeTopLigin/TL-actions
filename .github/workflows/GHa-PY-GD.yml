@@ -1,3 +1,4 @@
+# GitHubActions запускает Python, который создает файл на GoogleDrive
 
 name: Gha-PY-GD
 
@@ -17,7 +18,3 @@ jobs:
         run: ls  
       - name: Run script  # выполнить файл на языке
         run: python proba.py
-      - name: list current folder  # отобразить содержимое текущей директории (команда терминала Ubuntu)
-        run: ls
-      - name: open file  # открыть содержимое текстового файла (созданного скриптом py)
-        run: cat file.txt
