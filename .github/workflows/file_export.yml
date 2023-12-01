@@ -10,12 +10,12 @@ jobs:
     steps:
       - name: python check preset
         run: python --version
-      - uses: actions/checkout@v3
-      - name: list current folder
-        run: ls
-      - name: Run script
-        run: python proba.py
-      - name: list current folder
-        run: ls
-      - name: open file
-        run: cat file.txt
+     # - uses: actions/checkout@v3
+     # - name: list current folder
+     #   run: ls
+     # - name: Run script
+     #   run: python proba.py
+     # - name: list current folder
+     #   run: ls
+     # - name: open file
+     #   run: cat file.txt
