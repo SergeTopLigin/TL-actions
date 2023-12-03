@@ -16,4 +16,4 @@ auth = Auth.Token(UncodingToken)
 g = Github(auth=auth)
 
 repo = g.get_repo("SergeTopLigin/TL-actions")
-repo.create_file("test.txt", "test", "test", branch="main")
+repo.create_file("test.txt", "test 1", "test 2", branch="main")
