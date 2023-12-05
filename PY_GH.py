@@ -15,20 +15,9 @@ auth = Auth.Token(UncodingToken)
 # Public Web Github
 g = Github(auth=auth)
 
-
-import http.client
-
-conn = http.client.HTTPSConnection("v3.football.api-sports.io")
-
-headers = {
-    'x-apisports-key': "e4531fe674bb4eaab280d63fed977b07"
-    }
-
-conn.request("GET", "/status", headers=headers)
-
-res = conn.getresponse()
-data = res.read()
-
+import os   # импорт модуля работы с каталогами
+for Set_file in os.listdir(r"club_set/"):
+    text = Set_file
 
 repo = g.get_repo("SergeTopLigin/TL-actions")
-repo.create_file("test.txt", "test", data.decode("utf-8"), branch="main")
+repo.create_file("test.txt", "test", text, branch="main")
