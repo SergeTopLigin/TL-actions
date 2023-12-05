@@ -16,7 +16,7 @@ auth = Auth.Token(UncodingToken)
 g = Github(auth=auth)
 
 import os   # импорт модуля работы с каталогами
-for Set_file in os.listdir(r"club_set/"):
+for Set_file in os.listdir('club_set/'):
     text = Set_file
 
 repo = g.get_repo("SergeTopLigin/TL-actions")
