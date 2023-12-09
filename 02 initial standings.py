@@ -25,18 +25,35 @@ if create_flag == 1:   # если флаг создания файла подн�
     # создать файл UEFA Club Set
     if mod_UEFA_club_set.UEFA_club_set(october_year) == "prev_season":   # или использовать UEFA club set прошлого сезона при ошибках
         filename = "UefaClubSet_"+str(DateNow.year-1)+"-"+str(DateNow.year)
+UefaClubSetID = []    # создание списка id из файла UefaClubSet
+with open("club_set\\"+filename+".txt", 'r') as f:
+    for line in f:  # цикл по строкам
+        kursor = line.find('id:',0) +3    # переместить курсор перед искомой подстрокой
+        end_substr = line.find('.',kursor)    # определение конца искомой подстроки (поиск символа "." после позиции курсора)
+        UefaClubSetID.append(int(line[kursor:end_substr]))
 
-# создание словаря/списка TL standings на 01.07.23
-# в нем хранятся: name, nat, rate и, возможно, еще доп данные
+# создание словарей TL standings на 01.07.23
+# два словаря: {id:rate} для сортировки по убыванию рейтинга И {id:[name,nat,...]} - для хранения турнирных данных
+TL_standings_rate = {}  # словарь {id:rate} для сортировки по рейтингу
+TL_standings_data = {}  # словарь {id:[name,nat,...]} - для хранения турнирных данных
+import csv
+with open('UEFA club ranking '+str(october_year)+' name;ID;nat;rate.csv') as f:
+    reader = csv.reader(f, delimiter=';')
+    for row in reader:
+        TL_standings_rate[int(row[1])] = float(row[3])  # создание словаря {id:rate}
+        TL_standings_data[int(row[1])] = [str(row[0]), str(row[2])]  # создание словаря {id:[name,nat,...]}
 
 
 # здесь начинается циклическая часть с перерасчетами на каждую дату
 # если во входящих в дату standings появилось более одного клуба из одной асоциации, fixtures турниров которой не были запрошены ранее, - создать такие запросы
 # результаты игр брать из базы созданных ранее запросов fixtures
 
+Association_rating = {}     # словарь {Association:Rating}
+
 # цикл на каждую дату с 01.07.23 по сегодня
 calc_date = datetime.datetime(2023, 7, 1)
 while calc_date + datetime.timedelta(days=1) < DateNow:
+    print(calc_date)
 
     # определение влияния UEFA club rankings на текущий TL standings
     # 1.07.23: 100% UEFA club rankings + 0% TL standings
@@ -49,9 +66,20 @@ while calc_date + datetime.timedelta(days=1) < DateNow:
     UEFA_Influence = 1-TL_Influence
 
     # Association rating = total club set SUM(pts+1.2) in TL standigs
+    # определение UEFA rating
+    UEFA_rating = 0
+    for ID in TL_standings_rate:
+        for SetID in UefaClubSetID:
+            if ID == SetID:
+                UEFA_rating += TL_standings_rate[ID] + 1.2
+                break
+    print("UEFA rating: "+str(round(UEFA_rating, 2)))
+    # определение National ratings
+    Nations_list = []    # создание списка национальных ассоциаций, имеющих представителство в TL standings
+    for ID in TL_standings_data:
+        Nations_list.append(TL_standings_data[ID][1])
+    Nations_list = list(set(Nations_list))  # избавляемся от повторных элементов преобразованием во множество и обратно
     
 
-    # UEFA rating
-
-
-    calc_date += datetime.timedelta(days=1)
+    calc_date += datetime.timedelta(days=1) # перейти к следующей дате
+    print() # добавить пустую строку для разделения дат

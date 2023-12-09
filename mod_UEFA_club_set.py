@@ -37,21 +37,24 @@ def UEFA_club_set(october_year):   # определение текущего UEF
                             break
                         kursor = line.find('"teams"',kursor)    # переместить курсор перед подстрокой "teams"
                         for х in range(1, 3):
+                            kursor = line.find('"id":',kursor)+5    # переместить курсор за подстроку "id":
+                            end_substr = line.find(',',kursor)    # определение конца искомой подстроки (поиск символа , после позиции курсора)
+                            UEFA_club_id = line[kursor:end_substr]     # извлечение id клуба
                             kursor = line.find('"name":"',kursor)+8    # переместить курсор за подстроку "name":"
                             end_substr = line.find('"',kursor)    # определение конца искомой подстроки (поиск символа " после позиции курсора)
                             UEFA_club = line[kursor:end_substr]     # извлечение названия клуба
                             # UEFA_club = bytes(UEFA_club, "utf-8").decode("unicode_escape")   # декодирование символов не utf-8
                             # if UEFA_club.find("\\"): UEFA_club = UEFA_club.replace("\\","") # удаление из названия символов \\
-                            UEFA_clubs.append(UEFA_club)  # и добавление его в список
+                            if [UEFA_club, UEFA_club_id] not in UEFA_clubs:
+                                UEFA_clubs.append([UEFA_club, UEFA_club_id])  # и добавление его в список
         except FileNotFoundError:   # исключение "нет файла"
             return("prev_season")   # приводит к использованию UEFA club set прошлого сезона
-    UEFA_clubs = list(set(UEFA_clubs))  # избавляемся от повторных элементов преобразованием во множество
 
     # создание файла UEFA club set
     with open("club_set\\UefaClubSet_"+str(october_year)+"-"+str(october_year+1)+".txt", 'w') as f:
         for club in range(0, len(UEFA_clubs)):
-            if club == len(UEFA_clubs)-1: f.write(UEFA_clubs[club])
-            else: f.write(UEFA_clubs[club]+"\n")
+            if club == len(UEFA_clubs)-1: f.write(UEFA_clubs[club][0]+";   id:"+UEFA_clubs[club][1]+".")
+            else: f.write(UEFA_clubs[club][0]+";   id:"+UEFA_clubs[club][1]+".\n")
     
     # чистка папки cache
     for id_league in id_UEFA_Leagues: # цикл по лигам УЕФА
