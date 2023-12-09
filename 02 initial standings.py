@@ -66,6 +66,7 @@ while calc_date + datetime.timedelta(days=1) < DateNow:
     UEFA_Influence = 1-TL_Influence
 
     # Association rating = total club set SUM(pts+1.2) in TL standigs
+    print("Association ratings:")
     # определение UEFA rating
     UEFA_rating = 0
     for ID in TL_standings_rate:
@@ -73,13 +74,34 @@ while calc_date + datetime.timedelta(days=1) < DateNow:
             if ID == SetID:
                 UEFA_rating += TL_standings_rate[ID] + 1.2
                 break
-    print("UEFA rating: "+str(round(UEFA_rating, 2)))
+    UEFA_rating = round(UEFA_rating, 2)
     # определение National ratings
     Nations_list = []    # создание списка национальных ассоциаций, имеющих представителство в TL standings
+    Nations_list_rate = []  # и списка их рейтингов
     for ID in TL_standings_data:
         Nations_list.append(TL_standings_data[ID][1])
     Nations_list = list(set(Nations_list))  # избавляемся от повторных элементов преобразованием во множество и обратно
-    
+    for country in Nations_list:
+        Nation_rate = 0   # инициализация рейтинга конкретной ассоциации
+        for ID in TL_standings_data:
+            if country == TL_standings_data[ID][1]:
+                Nation_rate += TL_standings_rate[ID] + 1.2
+        Nations_list_rate.append(round(Nation_rate, 2))
+    # формирование общего словаря рейтингов ассоциаций
+    Associations_dict = dict(zip(Nations_list, Nations_list_rate))   # объединение списков нац ассоциаций и их рейтингов в одном словаре
+    Associations_dict["UEFA"] = UEFA_rating     # добавляем в словарь ассоциацию УЕФА
+    Associations_dict = dict(sorted(Associations_dict.items(), key=lambda x: x[1], reverse=True))
+    NumberOfSpace = 0   # расчет количества пробелов по макс длине имени ассоциации для читаемого отображения рейтингов
+    for ass_n in Associations_dict:
+        if len(ass_n) > NumberOfSpace:
+            NumberOfSpace = len(ass_n)
+    for ass_n in Associations_dict:     # добавить пробел вместо ноля, если рейтинг меньше 10
+        if Associations_dict[ass_n] < 10: 
+            Digit = " "
+        else:
+            Digit = ""
+        print("   ",ass_n," "*(NumberOfSpace-len(ass_n)),Digit,Associations_dict[ass_n])
+
 
     calc_date += datetime.timedelta(days=1) # перейти к следующей дате
     print() # добавить пустую строку для разделения дат
