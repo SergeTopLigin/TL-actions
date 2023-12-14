@@ -1,0 +1,24 @@
+Qarabag;   id:556.
+Gent;   id:631.
+Trabzonspor;   id:998.
+FC Basel 1893;   id:551.
+Lazio;   id:487.
+CFR 1907 Cluj;   id:2246.
+Bodo\/Glimt;   id:327.
+Lech Poznan;   id:347.
+SC Braga;   id:217.
+Fiorentina;   id:502.
+AEK Larnaca;   id:614.
+Dnipro-1;   id:3623.
+Sheriff Tiraspol;   id:568.
+FK Partizan;   id:573.
+Ludogorets;   id:566.
+Anderlecht;   id:554.
+AZ Alkmaar;   id:201.
+West Ham;   id:48.
+Nice;   id:84.
+Villarreal;   id:533.
+Istanbul Basaksehir;   id:564.
+Sivasspor;   id:1002.
+Djurgardens IF;   id:364.
+Slovan Bratislava;   id:656.
