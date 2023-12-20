@@ -19,6 +19,7 @@ g = Github(auth=auth)
 # for Set_file in os.listdir('club_set/'):
 #     text = Set_file
 
+import mod_apisports_key    # модуль с ключом аккаунта api
 api_answer = mod_apisports_key.api_key("/fixtures?league=2&season=2023&from=2023-10-01&to=2023-10-31")
 text = api_answer
 
