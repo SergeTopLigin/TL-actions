@@ -3,6 +3,7 @@ import math
 import os   # импорт модуля работы с каталогами
 import mod_UEFA_club_set    # модуль создания UEFA club set
 import mod_UEFAtournaments_club_set    # модуль создания UEFA tournament club set
+import mod_Nat_tournaments
 
 # определение UEFA Club Set
 # в UEFA Club Set входят клубы, участвующие/участвовавшие в последней групповой стадии еврокубков, определяющиеся обычно к 01.09
@@ -214,7 +215,7 @@ while calc_date + datetime.timedelta(days=1) < DateNow: # datetime.datetime(2023
         UEFA_tourn_club_set_ID[str(UEFA_tourn_club_set[i][0]+" "+UEFA_tourn_club_set[i][1]+" "+UEFA_tourn_club_set[i][2])] = LegueClubSetID
         i += 1
     
-    # Tournament rating = total club set SUM(pts+1.2) in TL standigs / Number of clubs in the set
+    # UEFA Tournament rating = total club set SUM(pts+1.2) in TL standigs / Number of clubs in the set
     print("Tournaments ratings & quotas:")
     # определение UEFA tournaments rating
     # определение наличия временного фактора при постепенном перетекании рейтинга из плейофф прошлого турнира в групповой этап текущего
@@ -297,68 +298,114 @@ while calc_date + datetime.timedelta(days=1) < DateNow: # datetime.datetime(2023
                     tourn.append(math.floor(round(whole_tourn_rate_quota[league][1] * tourn[1] / whole_tourn_rate_quota[league][0], 3)))
                 if tourn[0].find("playoff") != -1:
                     tourn.append(math.ceil(round(whole_tourn_rate_quota[league][1] * tourn[1] / whole_tourn_rate_quota[league][0], 3)))
-    
+
+    # расширить Ass_TournRateQuot до {Association:[Tournament,Season,Rating,Quota,TournID,TournType]} 
+    # изменением первых двух элементов и
+    # добавлением ID турнира и его типа (лига, кубок)
+    for tourn in Ass_TournRateQuot["UEFA"]:
+         if tourn[0].find("UCL") != -1:
+            tourn.insert(1, tourn[0][6:8]+"-"+tourn[0][11:13])
+            tourn[0] = tourn[0][:3]
+            tourn.append(2)
+            tourn.append("Cup")
+         if tourn[0].find("UEL") != -1:
+            tourn.insert(1, tourn[0][6:8]+"-"+tourn[0][11:13])
+            tourn[0] = tourn[0][:3]
+            tourn.append(3)
+            tourn.append("Cup")
+         if tourn[0].find("UECL") != -1:
+            tourn.insert(1, tourn[0][7:9]+"-"+tourn[0][12:14])
+            tourn[0] = tourn[0][:4]
+            tourn.append(848)
+            tourn.append("Cup")
+
     # учет квоты TL на 10 лидеров
-    Ass_TournRateQuot["TL"] = [["TopLiga", 1, 10]]
+    Ass_TournRateQuot["TopLiga"] = [["TopLiga", "", 1, 10]]
 
 
-    Tourn_RateQuot = {}   # создание словаря квот турниров {Tournament:[Rating,Quota]}
+    # National tournaments rating & quota
+
+    # добавить в Ass_TournRateQuot ассоциации с квотой > 0 в качестве ключей
+    # включить в Ass_TournRateQuot турниры нац ассоциаций
+    Ass_TournIdType = mod_Nat_tournaments.Nat_Tournaments()
+    for ass_n in Association_rating:
+        if ass_n not in Ass_TournRateQuot.keys() and Association_rating[ass_n][1] > 0:
+            for Ass in Ass_TournIdType:
+                if ass_n == Ass:
+                    Ass_TournRateQuot[ass_n] = Ass_TournIdType[Ass]
     for ass_n in Ass_TournRateQuot:
+        Del_tourn = []  # список турниров на удаление
         for tourn in Ass_TournRateQuot[ass_n]:
-            if tourn[0].find("group") !=-1:
-                tournament = tourn[0][:tourn[0].find("group")-1]
-            elif tourn[0].find("playoff") !=-1:
-                tournament = tourn[0][:tourn[0].find("playoff")-1]
-            else:
-                tournament = tourn[0]
-            # if tourn[2] !=0:
-            Tourn_RateQuot[tournament] = [str("{0:.2f}".format(tourn[1]))+" in "+ass_n, tourn[2]]
+            if tourn[0].find("League") != -1 or tourn[0].find("Cup") != -1: # из нац турниров
+                if tourn[2] == "None" or tourn[0].find("SCup") != -1:   # удалить несуществующие и суперкубки
+                    Del_tourn.append(tourn)
+                    # print(tourn)
+        for tourn in Del_tourn:
+            Ass_TournRateQuot[ass_n].remove(tourn)    
+    # приведение всех списков турниров Ass_TournRateQuot к виду [Tournament,Season,Rating,Quota,TournID,TournType]
+    for ass_n in Ass_TournRateQuot:
+        Del_tourn = []  # список турниров на удаление
+        for tourn in Ass_TournRateQuot[ass_n]:
+            if tourn[0].find("League") != -1:   # для League: если рассматриваемая дата с августа по декабрь - оставить оба турнира, иначе только curr
+                tourn[2] = 0        # изменение элемента на Rating
+                tourn.insert(3, 0)  # добавление элемента Quota
+                if calc_date.month < 8 and tourn[1] == "prev":
+                    Del_tourn.append(tourn)
+                if calc_date.month < 8 and tourn[1] == "curr":
+                    tourn[1] = str(calc_date.year-1)[2:]+"-"+str(calc_date.year)[2:]
+                if calc_date.month > 7 and tourn[1] == "prev":
+                    tourn[1] = str(calc_date.year-1)[2:]+"-"+str(calc_date.year)[2:]
+                if calc_date.month > 7 and tourn[1] == "curr":
+                    tourn[1] = str(calc_date.year)[2:]+"-"+str(calc_date.year+1)[2:]
+            if tourn[0].find("Cup") != -1:  # для всех кубковых турниров учитываются: незавершившийся турнир и предыдущий, если с его финала прошло <150 дней
+                if mod_cup_files.func_cup_files() == "pass":    # ошибка; перерасчет кубка - в следующем workflow
+
+                create_flag = 1    # инициализация флага необходимости создания файла
+                for Tourn_file in os.listdir('tournaments/'):  
+                # прочитать названия файлов из каталога tournaments
+                    if Tourn_file.find(tourn[0]+" "+str(cup_season)[2:]+"-"+str(cup_season+1)[2:])!=-1:  
+                        # если в каталоге club_set есть необходимый файл
+                        create_flag = 0    # опустить флаг создания файла
+                # if create_flag == 1:   # если флаг создания файла поднят - 
+                #     # создать необходимый файл
+                #     if mod_UEFAtournaments_club_set.UEFAtournaments_club_set(UEFA_tourn_club_set[i][0], UEFA_tourn_club_set[i][1], UEFA_tourn_club_set[i][2]) == \
+                #     "use_prev":   
+                #     # или использовать предыдущий club set при ошибках
+                #         if calc_date < datetime.datetime(2024, 9, 1):    # до сезона 24/25
+                #             # если ошибка при запросе group set - использовать предыдущий playoff set, который уже есть в UEFA_tourn_club_set
+                #             if UEFA_tourn_club_set[i][2] == "group set":
+                #                 # удалить UT_club_set из UEFA_tourn_club_set
+                #                 del UEFA_tourn_club_set[i]
+                #                 i -= 1   # смещение на итерацию назад, тк после удаления элемента номерация смещается
+
+        for tourn in Del_tourn:     # удаление турнира League prev при расчете во 2-й половине сезона
+            Ass_TournRateQuot[ass_n].remove(tourn)    
+
+    # print(Ass_TournRateQuot)
     
-    # сортировка словаря квот турниров по убыванию квот
-    Tourn_RateQuot = dict(sorted(Tourn_RateQuot.items(), key=lambda x: x[1][1], reverse=True))   
-
-    # вывод на экран Tournament quota
-    for tourn in Tourn_RateQuot:
-        print("    {0:15}  {1:2}  {2:}".format(Tourn_RateQuot[tourn][0], Tourn_RateQuot[tourn][1], tourn))
 
 
 
-    # # определение National ratings
-    # Nations_list = []    # создание списка национальных ассоциаций, имеющих представителство в TL standings
-    # Nations_list_rate = []  # и списка их рейтингов
-    # for ID in TL_standings_data:
-    #     Nations_list.append(TL_standings_data[ID][1])
-    # Nations_list = list(set(Nations_list))  # избавляемся от повторных элементов преобразованием во множество и обратно
-    # for country in Nations_list:
-    #     Nation_rate = 0   # инициализация рейтинга конкретной ассоциации
-    #     for ID in TL_standings_data:
-    #         if country == TL_standings_data[ID][1]:
-    #             Nation_rate += TL_standings_rate[ID] + 1.2
-    #     Nations_list_rate.append(round(Nation_rate, 2))
-    # # формирование общего словаря рейтингов ассоциаций
-    # Association_rating = dict(zip(Nations_list, Nations_list_rate))   # объединение списков нац ассоциаций и их рейтингов в одном словаре
-    # Association_rating["UEFA"] = UEFA_rating     # добавляем в словарь ассоциацию УЕФА
-    # Association_rating = dict(sorted(Association_rating.items(), key=lambda x: x[1], reverse=True))   # сортировка словаря рейтинга ассоциаций по убыванию рейтинга
-
-    # # Association quota = ˻ 50 * Assoiation rating / Σ (Assoiation ratings) ˼
-    # Associations_rate_sum = 0   # сумма рейтингов ассоциаций
-    # for ass_n in Association_rating:
-    #     Associations_rate_sum += Association_rating[ass_n]
-    # Associations_rate_sum = round(Associations_rate_sum, 2)
-    # for ass_n in Association_rating:
-    #     Association_quota = math.floor(50 * Association_rating[ass_n] / Associations_rate_sum)
-    #     Association_rating[ass_n] = [Association_rating[ass_n], Association_quota]    # увеличение вложенности словаря ассоциаций: {ass:[rate,quota]}
-    # # учет квоты TL на 10 лидеров
-    # Association_rating["TopLiga"] = [0, 10]
-    # Association_rating = dict(sorted(Association_rating.items(), key=lambda x: x[1][1], reverse=True))   # сортировка словаря рейтинга ассоциаций по убыванию рейтинга
-
-    # # вывод на экран Association rating & quota
-    # for ass_n in Association_rating:
-    #     print("{0:8.2f}  {1:2}  {2:}".format(Association_rating[ass_n][0], Association_rating[ass_n][1], ass_n))
-
-
-
+    # Tourn_RateQuot = {}   # создание словаря квот турниров {Tournament:[Rating,Quota]}
+    # for ass_n in Ass_TournRateQuot:
+    #     for tourn in Ass_TournRateQuot[ass_n]:
+    #         if tourn[0].find("group") !=-1:
+    #             tournament = tourn[0][:tourn[0].find("group")-1]
+    #         elif tourn[0].find("playoff") !=-1:
+    #             tournament = tourn[0][:tourn[0].find("playoff")-1]
+    #         else:
+    #             tournament = tourn[0]
+    #         # if tourn[2] !=0:
+    #         Tourn_RateQuot[tournament] = [str("{0:.2f}".format(tourn[1]))+" in "+ass_n, tourn[2]]
     
+    # # сортировка словаря квот турниров по убыванию квот
+    # Tourn_RateQuot = dict(sorted(Tourn_RateQuot.items(), key=lambda x: x[1][1], reverse=True))   
+
+    # # вывод на экран Tournament quota
+    # for tourn in Tourn_RateQuot:
+    #     print("    {0:15}  {1:2}  {2:}".format(Tourn_RateQuot[tourn][0], Tourn_RateQuot[tourn][1], tourn))
+
+    # разбить весь код на модули: Association:Rating,Quota; Tournament:Rating,Quota итд, запускаемые ежедневно или в определнные даты
 
     # определение влияния UEFA club rankings на текущий TL standings
     # 1.07.23: 100% UEFA club rankings + 0% TL standings
