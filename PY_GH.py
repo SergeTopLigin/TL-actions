@@ -24,6 +24,6 @@ api_answer = mod_apisports_key.api_key("/fixtures?league=2&season=2023&from=2023
 text = api_answer
 
 repo = g.get_repo("SergeTopLigin/TL-actions")
-repo.create_file("test1.txt", "test", text, branch="main")
+repo.create_file("cache/test1.txt", "test", text, branch="main")
 
 g.close()
