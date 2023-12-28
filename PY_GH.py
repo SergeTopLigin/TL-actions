@@ -25,3 +25,5 @@ text = api_answer
 
 repo = g.get_repo("SergeTopLigin/TL-actions")
 repo.create_file("test1.txt", "test", text, branch="main")
+
+g.close()
