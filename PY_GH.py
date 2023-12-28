@@ -23,5 +23,5 @@ import mod_apisports_key    # модуль с ключом аккаунта api
 api_answer = mod_apisports_key.api_key("/fixtures?league=2&season=2023&from=2023-10-01&to=2023-10-31")
 text = api_answer
 
-repo = g.get_repo("SergeTopLigin/TL-actions")
+repo = g.get_repo("SergeTopLigin/TL-actions/cache")
 repo.create_file("test.txt", "test", text, branch="main")
