@@ -21,9 +21,9 @@
         # сохранить запрос в файл "prev"
     # если results == 0: (запрос после января или в межсезонье)
         # запрос season = calc_date.year -1
-        # если есть round: Final и status: long: Match Finished: (сезон закончен, идет межсезонье)
+        # если есть round: Final и status: short: FT / AET / PEN / CANC / AWD / WO: (сезон закончен, идет межсезонье)
             # сохранить запрос в файл "prev"
-        # если отсутствует round: Final или его status: long: Not Started: (сезон идет)
+        # если отсутствует round: Final или его status: short: не FT / AET / PEN / CANC / AWD / WO: (сезон идет)
             # сохранить запрос в файл "curr"
             # запрос season = calc_date.year -2
             # сохранить запрос в файл "prev"
@@ -51,23 +51,23 @@
             # сохранить запрос в файл "prev"
     # если results == 0: (запрос после января или в межсезонье)
         # запрос season = calc_date.year -1
-        # если отсутствует round: Final или его status: long: Not Started (сезон идет)
+        # если отсутствует round: Final или его status: short: не FT / AET / PEN / CANC / AWD / WO (сезон идет)
             # сохранить запрос в файл "curr"
             # если season "curr" -1 > season "prev"
                 # удалить суффикс "prev" из имени файла
                 # запрос season = "curr" -1
                 # сохранить запрос в файл "prev"
-        # если есть round: Final и status: long: Match Finished: (сезон закончен, идет межсезонье)
+        # если есть round: Final и status: short: FT / AET / PEN / CANC / AWD / WO: (сезон закончен, идет межсезонье)
             # сохранить запрос в файл и изменить его суффикс "curr" на "prev"
             # удалить суффикс "prev" из имени предыдущего файла "prev"
 # в каталоге есть недействительные "curr" и "prev" (турнир выпал из квотообразующих во время одного из прошлых сезонов) 
-# если в запросе season "curr" есть round: Final и status: long: Match Finished
+# если в запросе season "curr" есть round: Final и status: short: FT / AET / PEN / CANC / AWD / WO
     # удалить суффиксы "curr" и "prev" из имен файлов
     # выполнить действия из условия: в каталоге нет файлов "curr" и "prev"
     # если есть файл по YY-YY дублирующий только что созданный "prev"
         # удалить этот файл без суффикса
 # в каталоге есть недействительный "prev" (турнир выпал из квотообразующих во время одного из прошлых межсезоний)
-# если в запросе season "prev" +1 есть round: Final и status: long: Match Finished
+# если в запросе season "prev" +1 есть round: Final и status: short: FT / AET / PEN / CANC / AWD / WO
     # удалить суффикс "prev" из имени файла
     # выполнить действия из условия: в каталоге нет файлов "curr" и "prev"
 
@@ -81,25 +81,25 @@
         # сохранить запрос в файл "prev"
     # else results == 0: (запрос после января или в межсезонье)
         # запрос season = calc_date.year -1
-        # if есть round: Final и status: long: Match Finished: (сезон закончен, идет межсезонье)
+        # if есть round: Final и status: short: FT / AET / PEN / CANC / AWD / WO: (сезон закончен, идет межсезонье)
             # сохранить запрос в файл "prev"
-        # else отсутствует round: Final или его status: long: Not Started: (сезон идет)
+        # else отсутствует round: Final или его status: short: не FT / AET / PEN / CANC / AWD / WO: (сезон идет)
             # сохранить запрос в файл "curr"
             # запрос season = calc_date.year -2
             # сохранить запрос в файл "prev"
 # 1 запрос в 20 дней, 1 запрос каждый день после последнего матча стадии до жеребьевки следующей, макс 4 запроса один раз для возобновления турнира
 # elif в каталоге есть "curr" и "prev" (актуальные или нет)
-    # if calc_date < Last +1 из "curr" ("curr" актуальный)
+    # if calc_date <= Last из "curr" ("curr" актуальный)
         # pass
-    # else calc_date >= Last +1 из "curr" (наступила дата Last +1 ИЛИ турнир выпадал из квотообразующих и возобновляется)
+    # else calc_date > Last из "curr" (наступила дата Last +1 ИЛИ турнир выпадал из квотообразующих и возобновляется)
         # запрос season = "curr"
-        # if отсутствует round: Final или его status: long: Not Started
+        # if отсутствует round: Final или его status: short: не FT / AET / PEN / CANC / AWD / WO
             # сохранить запрос в файл "curr"
             # if season "curr" -1 > season "prev"
                 # удалить из имени файла суффикс "prev"
                 # запрос season "curr" -1
                 # сохранить запрос в файле "prev"
-        # elif есть round: Final и status: long: Match Finished ("curr" и "prev" НЕ актуальны,турнир выпал из квотообразующих во время одного из прошлых сезонов)
+        # elif есть round: Final и status: short: FT / AET / PEN / CANC / AWD / WO ("curr" и "prev" НЕ актуальны,турнир выпал из квотообразующих во время одного из прошлых сезонов)
             # сохранить запрос в файл "curr"
             # удалить суффиксы "curr" и "prev" из имен файлов
             # выполнить действия из условия: в каталоге нет файлов "curr" и "prev"
@@ -119,81 +119,243 @@
                 # сохранить запрос в файл "prev"
         # else results == 0: (сезон не начался или запрос весной, а файл старого сезона)
             # запрос season = calc_date.year -1
-            # if отсутствует round: Final или его status: long: Not Started (запрос весной, а файл старого сезона)
+            # if отсутствует round: Final или его status: short: не FT / AET / PEN / CANC / AWD / WO (запрос весной, а файл старого сезона)
                 # сохранить запрос season = calc_date.year -1 в файл "curr"
                 # if season "curr" -1 > season "prev"
                     # удалить из имени файла суффикс "prev"
                     # запрос season "curr" -1
                     # сохранить запрос в файл "prev"
-            # elif есть round: Final и status: long: Match Finished (сезон не начался)
+            # elif есть round: Final и status: short: FT / AET / PEN / CANC / AWD / WO (сезон не начался)
                 # if season "prev" < calc_date.year -1
                     # удалить из имени файла суффикс "prev"
                     # сохранить запрос в файл "prev"
 # ИТОГО: 3 запроса в начале, 1 запрос в 20 дней для поддержания турнира, макс 4 запроса один раз для возобновления турнира
 
 
-import time # модуль для паузы и определения текущего UEFA club set
-import datetime
-import os   # импорт модуля работы с каталогами
-import mod_apisports_key    # модуль с ключом аккаунта api
-import mod_Nat_tournaments  # модуль словаря {Association:[AssType,Season,Tournament,TournID,TournType]}
-
 def func_cup_files(Cup, calc_date):
+    import traceback
+    import datetime     # модуль для определния текущей даты
+    DateNow = str(datetime.datetime.utcnow())[:19].replace(":", "-")    # текущая дата по UTC, отформатированная под строку для имени файла
+    try:    # обработка исключений для определения ошибки и записи ее в bug_file в блоке except
+        import time # модуль для паузы и определения текущего UEFA club set
+        import os   # импорт модуля работы с каталогами
+        import mod_apisports_key    # модуль с ключом аккаунта api
+        import mod_Nat_tournaments  # модуль словаря {Association:[AssType,Season,Tournament,TournID,TournType]}
+        import mod_api_request      # модуль поиска информации в запросе
 
-    Ass_TournIdType = mod_Nat_tournaments.Nat_Tournaments()     # словарь {Association:[AssType,Season,Tournament,TournID,TournType]}
-    # определение ID турнира    
-    for ass in Ass_TournIdType:
-        for AssType in Ass_TournIdType[ass]:
-            if Cup == AssType[0]:
-                CupID = AssType[3]
-                break
+        Ass_TournIdType = mod_Nat_tournaments.Nat_Tournaments()     # словарь {Association:[AssType,Season,Tournament,TournID,TournType]}
+        # определение ID турнира    
+        for ass in Ass_TournIdType:
+            for AssType in Ass_TournIdType[ass]:
+                if Cup == AssType[0]:
+                    CupID = str(AssType[3])
+                    break
+        # определение наличия файлов curr и prev
+        curr_find = "empty"
+        prev_find = "empty"
+        for Cup_file in os.listdir('tournaments/'):
+            if Cup_file.find(Cup) != -1 and Cup_file.find("curr") != -1:
+                curr_find = Cup_file
+            if Cup_file.find(Cup) != -1 and Cup_file.find("prev") != -1:
+                prev_find = Cup_file
 
-    file_find_flag = 0  # флаг наличия в каталоге файла
-    # if в каталоге нет файлов "curr" и "prev"
-    for Cup_file in os.listdir('tournaments/'):
-        if Cup_file.find(Cup) != -1 and (Cup_file.find("curr") != -1 or Cup_file.find("prev") != -1):
-            file_find_flag = 1
-            break
-    if file_find_flag == 0:
-        # запрос season = calc_date.year
-        try:
-            api_date_year = mod_apisports_key.api_key("/fixtures?league="+CupID+"&season="+calc_date.year)
-        except: # исключение "не удалось создать запрос"
-            return("pass")   # приводит к ожиданию следующего workflow для перерасчета этого кубка
-        time.sleep(7)   # лимит: 10 запросов в минуту: между запросами 7 секунд: https://dashboard.api-football.com/faq Technical
-        # if results != 0: (запрос до января)
-        if api_date_year[api_date_year.find("results")+9 : api_date_year.find("results")+10] != "0":
-            # сохранить запрос в файл "curr"
-            with open("tournaments\\"+Cup+" "+str(calc_date.year)[2:]+"-"+str(calc_date.year+1)[2:]+" curr.txt", 'w') as f:    # "Tourn YY-YY prev/curr"
-                f.write(api_date_year)
-            # запрос season = calc_date.year -1
-            try:
-                api_date_prev_year = mod_apisports_key.api_key("/fixtures?league="+CupID+"&season="+str(calc_date.year-1))
-            except: # исключение "не удалось создать запрос"
-                return("pass")   # приводит к ожиданию следующего workflow для перерасчета этого кубка
+        # if в каталоге нет файлов "curr" и "prev"
+        if curr_find == "empty" and prev_find == "empty":
+            # запрос season = calc_date.year
+            api_date_year = mod_apisports_key.api_key("/fixtures?league="+CupID+"&season="+str(calc_date.year))
             time.sleep(7)   # лимит: 10 запросов в минуту: между запросами 7 секунд: https://dashboard.api-football.com/faq Technical
-            # сохранить запрос в файл "prev"
-            with open("tournaments\\"+Cup+" "+str(calc_date.year-1)[2:]+"-"+str(calc_date.year)[2:]+" prev.txt", 'w') as f:    # "Tourn YY-YY prev/curr"
-                f.write(api_date_prev_year)
-        # else results == 0: (запрос после января или в межсезонье)
-        else:
-            # запрос season = calc_date.year -1
-            try:
-                api_date_prev_year = mod_apisports_key.api_key("/fixtures?league="+CupID+"&season="+str(calc_date.year-1))
-            except: # исключение "не удалось создать запрос"
-                return("pass")   # приводит к ожиданию следующего workflow для перерасчета этого кубка
-            time.sleep(7)   # лимит: 10 запросов в минуту: между запросами 7 секунд: https://dashboard.api-football.com/faq Technical
-
-            # if есть round: Final и status: long: Match Finished: (сезон закончен, идет межсезонье)
-                # сохранить запрос в файл "prev"
-            # else отсутствует round: Final или его status: long: Not Started: (сезон идет)
+            # if results != 0: (запрос до января)
+            if api_date_year[api_date_year.find("results")+9 : api_date_year.find("results")+10] != "0":
                 # сохранить запрос в файл "curr"
-                # запрос season = calc_date.year -2
+                with open("tournaments\\"+Cup+" "+str(calc_date.year)[2:]+"-"+str(calc_date.year+1)[2:]+" curr.txt", 'w') as f:    # "Tourn YY-YY prev/curr"
+                    f.write(api_date_year)
+                # запрос season = calc_date.year -1
+                api_date_prev_year = mod_apisports_key.api_key("/fixtures?league="+CupID+"&season="+str(calc_date.year-1))
+                time.sleep(7)   # лимит: 10 запросов в минуту: между запросами 7 секунд: https://dashboard.api-football.com/faq Technical
                 # сохранить запрос в файл "prev"
+                with open("tournaments\\"+Cup+" "+str(calc_date.year-1)[2:]+"-"+str(calc_date.year)[2:]+" prev.txt", 'w') as f:    # "Tourn YY-YY prev/curr"
+                    f.write(api_date_prev_year)
+            # else results == 0: (запрос после января или в межсезонье)
+            else:
+                # запрос season = calc_date.year -1
+                api_date_prev_year = mod_apisports_key.api_key("/fixtures?league="+CupID+"&season="+str(calc_date.year-1))
+                time.sleep(7)   # лимит: 10 запросов в минуту: между запросами 7 секунд: https://dashboard.api-football.com/faq Technical
+                # if есть round: Final и status: short: FT / AET / PEN / CANC / AWD / WO: (сезон закончен, идет межсезонье)
+                Cup_status = mod_api_request.CupIsFinished(api_date_prev_year)
+                if Cup_status == "pass":   # приводит к ожиданию следующего workflow для перерасчета этого кубка
+                    return("pass")
+                elif Cup_status == "finished":
+                    # сохранить запрос в файл "prev"
+                    with open("tournaments\\"+Cup+" "+str(calc_date.year-1)[2:]+"-"+str(calc_date.year)[2:]+" prev.txt", 'w') as f:    # "Tourn YY-YY prev/curr"
+                        f.write(api_date_prev_year)
+                elif Cup_status == "in_progress":   # else отсутствует round: Final или его status: short: не FT / AET / PEN / CANC / AWD / WO: (сезон идет)
+                    # сохранить запрос в файл "curr"
+                    with open("tournaments\\"+Cup+" "+str(calc_date.year-1)[2:]+"-"+str(calc_date.year)[2:]+" curr.txt", 'w') as f:    # "Tourn YY-YY prev/curr"
+                        f.write(api_date_prev_year)
+                    # запрос season = calc_date.year -2
+                    api_date_2prev_year = mod_apisports_key.api_key("/fixtures?league="+CupID+"&season="+str(calc_date.year-2))
+                    time.sleep(7)   # лимит: 10 запросов в минуту: между запросами 7 секунд: https://dashboard.api-football.com/faq Technical
+                    # сохранить запрос в файл "prev"
+                    with open("tournaments\\"+Cup+" "+str(calc_date.year-2)[2:]+"-"+str(calc_date.year-1)[2:]+" prev.txt", 'w') as f:    # "Tourn YY-YY prev/curr"
+                        f.write(api_date_2prev_year)
 
+        # elif в каталоге есть "curr" и "prev" (актуальные или нет)
+        elif curr_find != "empty" and prev_find != "empty":
+            # if calc_date <= Last из "curr" ("curr" актуальный)
+            with open("tournaments\\"+curr_find, 'r') as f:
+                curr_file = f.read()
+            Last_date = mod_api_request.CupLast(curr_file)
+            if Last_date == "pass":   # приводит к ожиданию следующего workflow для перерасчета этого кубка
+                return("pass")
+            if calc_date <= Last_date
+                return("pass")  # файлы актуальны, последний известный матч еще не сыгран
+            else:   # else calc_date > Last из "curr" (наступила дата Last +1 ИЛИ турнир выпадал из квотообразующих и возобновляется)
+                # запрос season = "curr"
+                api_curr_year = mod_apisports_key.api_key("/fixtures?league="+CupID+"&season=20"+curr_find[-14:-12])
+                time.sleep(7)   # лимит: 10 запросов в минуту: между запросами 7 секунд: https://dashboard.api-football.com/faq Technical
+                # if отсутствует round: Final или его status: short: не FT / AET / PEN / CANC / AWD / WO
+                Cup_status = mod_api_request.CupIsFinished(api_curr_year)
+                if Cup_status == "pass":   # приводит к ожиданию следующего workflow для перерасчета этого кубка
+                    return("pass")
+                elif Cup_status == "in_progress":
+                    # сохранить запрос в файл "curr" (при открытии с 'w' - файл перезаписывается)
+                    with open("tournaments\\"+curr_find, 'w') as f:    # "Tourn YY-YY prev/curr"
+                        f.write(api_curr_year)
+                    # if season "curr" -1 > season "prev"
+                    if int(curr_find[-14:-12]) -1 > int(prev_find[-14:-12]):
+                        # удалить из имени файла суффикс "prev"
+                        os.rename("tournaments\\"+prev_find, "tournaments\\"+prev_find[:-9]+".txt")
+                        # запрос season "curr" -1
+                        api_prevcurr_year = mod_apisports_key.api_key("/fixtures?league="+CupID+"&season=20"+str(int(curr_find[-14:-12])-1))
+                        time.sleep(7)   # лимит: 10 запросов в минуту: между запросами 7 секунд: https://dashboard.api-football.com/faq Technical
+                        # сохранить запрос в файле "prev"
+                        with open("tournaments\\"+Cup+" "+str(int(curr_find[-14:-12])-1)+"-"+str(int(curr_find[-14:-12]))+" prev.txt", 'w') as f:    # "Tourn YY-YY prev/curr"
+                            f.write(api_prevcurr_year)
+                # elif есть round: Final и status: short: FT / AET / PEN / CANC / AWD / WO ("curr" и "prev" НЕ актуальны,турнир выпал из квотообразующих во время одного из прошлых сезонов)
+                elif Cup_status == "finished":
+                    # сохранить запрос в файл "curr"
+                    with open("tournaments\\"+curr_find, 'w') as f:    # "Tourn YY-YY prev/curr"
+                        f.write(api_curr_year)
+                    # удалить суффиксы "curr" и "prev" из имен файлов
+                    os.rename("tournaments\\"+prev_find, "tournaments\\"+prev_find[:-9]+".txt")
+                    os.rename("tournaments\\"+curr_find, "tournaments\\"+curr_find[:-9]+".txt")
+                    # выполнить действия из условия: в каталоге нет файлов "curr" и "prev"
+                    # 
+                    # запрос season = calc_date.year
+                    api_date_year = mod_apisports_key.api_key("/fixtures?league="+CupID+"&season="+str(calc_date.year))
+                    time.sleep(7)   # лимит: 10 запросов в минуту: между запросами 7 секунд: https://dashboard.api-football.com/faq Technical
+                    # if results != 0: (запрос до января)
+                    if api_date_year[api_date_year.find("results")+9 : api_date_year.find("results")+10] != "0":
+                        # сохранить запрос в файл "curr"
+                        with open("tournaments\\"+Cup+" "+str(calc_date.year)[2:]+"-"+str(calc_date.year+1)[2:]+" curr.txt", 'w') as f:    # "Tourn YY-YY prev/curr"
+                            f.write(api_date_year)
+                        # запрос season = calc_date.year -1
+                        api_date_prev_year = mod_apisports_key.api_key("/fixtures?league="+CupID+"&season="+str(calc_date.year-1))
+                        time.sleep(7)   # лимит: 10 запросов в минуту: между запросами 7 секунд: https://dashboard.api-football.com/faq Technical
+                        # сохранить запрос в файл "prev"
+                        with open("tournaments\\"+Cup+" "+str(calc_date.year-1)[2:]+"-"+str(calc_date.year)[2:]+" prev.txt", 'w') as f:    # "Tourn YY-YY prev/curr"
+                            f.write(api_date_prev_year)
+                    # else results == 0: (запрос после января или в межсезонье)
+                    else:
+                        # запрос season = calc_date.year -1
+                        api_date_prev_year = mod_apisports_key.api_key("/fixtures?league="+CupID+"&season="+str(calc_date.year-1))
+                        time.sleep(7)   # лимит: 10 запросов в минуту: между запросами 7 секунд: https://dashboard.api-football.com/faq Technical
+                        # if есть round: Final и status: short: FT / AET / PEN / CANC / AWD / WO: (сезон закончен, идет межсезонье)
+                        Cup_status = mod_api_request.CupIsFinished(api_date_prev_year)
+                        if Cup_status == "pass":   # приводит к ожиданию следующего workflow для перерасчета этого кубка
+                            return("pass")
+                        elif Cup_status == "finished":
+                            # сохранить запрос в файл "prev"
+                            with open("tournaments\\"+Cup+" "+str(calc_date.year-1)[2:]+"-"+str(calc_date.year)[2:]+" prev.txt", 'w') as f:    # "Tourn YY-YY prev/curr"
+                                f.write(api_date_prev_year)
+                        elif Cup_status == "in_progress":   # else отсутствует round: Final или его status: short: не FT / AET / PEN / CANC / AWD / WO: (сезон идет)
+                            # сохранить запрос в файл "curr"
+                            with open("tournaments\\"+Cup+" "+str(calc_date.year-1)[2:]+"-"+str(calc_date.year)[2:]+" curr.txt", 'w') as f:    # "Tourn YY-YY prev/curr"
+                                f.write(api_date_prev_year)
+                            # запрос season = calc_date.year -2
+                            api_date_2prev_year = mod_apisports_key.api_key("/fixtures?league="+CupID+"&season="+str(calc_date.year-2))
+                            time.sleep(7)   # лимит: 10 запросов в минуту: между запросами 7 секунд: https://dashboard.api-football.com/faq Technical
+                            # сохранить запрос в файл "prev"
+                            with open("tournaments\\"+Cup+" "+str(calc_date.year-2)[2:]+"-"+str(calc_date.year-1)[2:]+" prev.txt", 'w') as f:    # "Tourn YY-YY prev/curr"
+                                f.write(api_date_2prev_year)
+                    # 
+                    # если есть файл по YY-YY дублирующий только что созданный "prev"
+                    for Cup_file in os.listdir('tournaments/'):
+                        if Cup_file.find(Cup) != -1 and Cup_file.find("prev") != -1:
+                            Del_file = Cup_file[:-9]+".txt"
+                            break
+                    if os.path.exists("tournaments\\"+Del_file):
+                        # удалить этот файл без суффикса
+                        os.remove("tournaments\\"+Del_file)
 
-# вспомогательные переменные и вызов функции (удалить после тестирования)
-Cup = "ENG Cup"     # в соответствии с AssType словаря из mod_Nat_tournaments
-calc_date = datetime.datetime(2023, 8, 7)
-if func_cup_files(Cup, calc_date) == "pass":
-    print("ожидание следующего workflow")
+        # elif в каталоге есть только "prev" (актуальный или нет)
+        elif curr_find == "empty" and prev_find != "empty":
+            with open("tournaments\\"+prev_find, 'r') as f:
+                prev_file = f.read()
+            First_date = mod_api_request.CupFirst(prev_file)
+            # if calc.date < First +год +месяц "prev"
+            if calc_date < First_date + datetime.timedelta(days=400):
+                return("pass")
+            # else calc.date >= First +год +месяц "prev"
+            else:
+                # запрос season = calc_date.year
+                api_date_year = mod_apisports_key.api_key("/fixtures?league="+CupID+"&season="+str(calc_date.year))
+                time.sleep(7)   # лимит: 10 запросов в минуту: между запросами 7 секунд: https://dashboard.api-football.com/faq Technical
+                # if results != 0: (сезон начался)
+                if api_date_year[api_date_year.find("results")+9 : api_date_year.find("results")+10] != "0":
+                    # сохранить запрос в файл "curr"
+                    with open("tournaments\\"+Cup+" "+str(calc_date.year)[2:]+"-"+str(calc_date.year+1)[2:]+" curr.txt", 'w') as f:    # "Tourn YY-YY prev/curr"
+                        f.write(api_date_year)
+                    # if season "curr" -1 > season "prev"
+                    if calc_date.year -1 > int(prev_find[-14:-12]):
+                        # удалить из имени файла суффикс "prev"
+                        os.rename("tournaments\\"+prev_find, "tournaments\\"+prev_find[:-9]+".txt")
+                        # запрос season "curr" -1
+                        api_date_prev_year = mod_apisports_key.api_key("/fixtures?league="+CupID+"&season="+str(calc_date.year-1))
+                        time.sleep(7)   # лимит: 10 запросов в минуту: между запросами 7 секунд: https://dashboard.api-football.com/faq Technical
+                        # сохранить запрос в файл "prev"
+                        with open("tournaments\\"+Cup+" "+str(calc_date.year-1)[2:]+"-"+str(calc_date.year)[2:]+" prev.txt", 'w') as f:    # "Tourn YY-YY prev/curr"
+                            f.write(api_date_prev_year)
+                # else results == 0: (сезон не начался или запрос весной, а файл старого сезона)
+                else:
+                    # запрос season = calc_date.year -1
+                    api_date_prev_year = mod_apisports_key.api_key("/fixtures?league="+CupID+"&season="+str(calc_date.year-1))
+                    time.sleep(7)   # лимит: 10 запросов в минуту: между запросами 7 секунд: https://dashboard.api-football.com/faq Technical
+                    # if отсутствует round: Final или его status: short: не FT / AET / PEN / CANC / AWD / WO (запрос весной, а файл старого сезона)
+                    Cup_status = mod_api_request.CupIsFinished(api_date_prev_year)
+                    if Cup_status == "pass":   # приводит к ожиданию следующего workflow для перерасчета этого кубка
+                        return("pass")
+                    elif Cup_status == "in_progress":
+                        # сохранить запрос season = calc_date.year -1 в файл "curr"
+                        with open("tournaments\\"+Cup+" "+str(calc_date.year-1)[2:]+"-"+str(calc_date.year)[2:]+" curr.txt", 'w') as f:    # "Tourn YY-YY prev/curr"
+                            f.write(api_date_prev_year)
+                        # if season "curr" -1 > season "prev"
+                        if calc_date.year -1 > int(prev_find[-14:-12]):
+                            # удалить из имени файла суффикс "prev"
+                            os.rename("tournaments\\"+prev_find, "tournaments\\"+prev_find[:-9]+".txt")
+                            # запрос season "curr" -1
+                            api_date_2prev_year = mod_apisports_key.api_key("/fixtures?league="+CupID+"&season="+str(calc_date.year-2))
+                            time.sleep(7)   # лимит: 10 запросов в минуту: между запросами 7 секунд: https://dashboard.api-football.com/faq Technical
+                            # сохранить запрос в файл "prev"
+                            with open("tournaments\\"+Cup+" "+str(calc_date.year-2)[2:]+"-"+str(calc_date.year-1)[2:]+" prev.txt", 'w') as f:    # "Tourn YY-YY prev/curr"
+                                f.write(api_date_2prev_year)
+                    # elif есть round: Final и status: short: FT / AET / PEN / CANC / AWD / WO (сезон не начался)
+                    elif Cup_status == "finished":
+                        # if calc_date.year -1 > season "prev"
+                        if calc_date.year -1 > int(prev_find[-14:-12]):
+                            # удалить из имени файла суффикс "prev"
+                            os.rename("tournaments\\"+prev_find, "tournaments\\"+prev_find[:-9]+".txt")
+                            # сохранить запрос в файл "prev"
+                            with open("tournaments\\"+Cup+" "+str(calc_date.year-1)[2:]+"-"+str(calc_date.year)[2:]+" prev.txt", 'w') as f:    # "Tourn YY-YY prev/curr"
+                                f.write(api_date_prev_year)
+
+    except:
+        with open("bug_files\\"+DateNow+".txt", 'w') as f:
+            traceback.print_exc(file=f)
+        return("pass")   # приводит к ожиданию следующего workflow для перерасчета этого кубка
+
+# # вспомогательные переменные и вызов функции (удалить после тестирования)
+# Cup = "ENG Cup"     # в соответствии с AssType словаря из mod_Nat_tournaments
+# calc_date = datetime.datetime(2024, 1, 1)
+# if func_cup_files(Cup, calc_date) == "pass":
+#     print("ожидание следующего workflow")
