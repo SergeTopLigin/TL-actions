@@ -72,63 +72,64 @@
     # выполнить действия из условия: в каталоге нет файлов "curr" и "prev"
 
 # ОБЪЕДИНЕНИЕ
+# + в конце строки обозначает, что выполнение условия оттестировано
 # макс 3 запроса в один день один раз в начале
-# if в каталоге нет файлов "curr" и "prev"
-    # запрос season = calc_date.year
-    # if results != 0: (запрос до января)
-        # сохранить запрос в файл "curr"
-        # запрос season = calc_date.year -1
-        # сохранить запрос в файл "prev"
-    # else results == 0: (запрос после января или в межсезонье)
-        # запрос season = calc_date.year -1
-        # if есть round: Final и status: short: FT / AET / PEN / CANC / AWD / WO: (сезон закончен, идет межсезонье)
-            # сохранить запрос в файл "prev"
-        # else отсутствует round: Final или его status: short: не FT / AET / PEN / CANC / AWD / WO: (сезон идет)
-            # сохранить запрос в файл "curr"
-            # запрос season = calc_date.year -2
-            # сохранить запрос в файл "prev"
+# if в каталоге нет файлов "curr" и "prev"      +
+    # запрос season = calc_date.year            +
+    # if results != 0: (запрос до января)       +
+        # сохранить запрос в файл "curr"        +
+        # запрос season = calc_date.year -1     +
+        # сохранить запрос в файл "prev"        +
+    # else results == 0: (запрос после января или в межсезонье) +
+        # запрос season = calc_date.year -1     +
+        # if есть round: Final и status: short: FT / AET / PEN / CANC / AWD / WO: (сезон закончен, идет межсезонье) +
+            # сохранить запрос в файл "prev"    +
+        # else отсутствует round: Final или его status: short: не FT / AET / PEN / CANC / AWD / WO: (сезон идет)    +
+            # сохранить запрос в файл "curr"    +
+            # запрос season = calc_date.year -2 +
+            # сохранить запрос в файл "prev"    +
 # 1 запрос в 20 дней, 1 запрос каждый день после последнего матча стадии до жеребьевки следующей, макс 4 запроса один раз для возобновления турнира
 # elif в каталоге есть "curr" и "prev" (актуальные или нет)
-    # if calc_date <= Last из "curr" ("curr" актуальный)
-        # pass
-    # else calc_date > Last из "curr" (наступила дата Last +1 ИЛИ турнир выпадал из квотообразующих и возобновляется)
-        # запрос season = "curr"
-        # if отсутствует round: Final или его status: short: не FT / AET / PEN / CANC / AWD / WO
-            # сохранить запрос в файл "curr"
-            # if season "curr" -1 > season "prev"
-                # удалить из имени файла суффикс "prev"
-                # запрос season "curr" -1
-                # сохранить запрос в файле "prev"
-        # elif есть round: Final и status: short: FT / AET / PEN / CANC / AWD / WO ("curr" и "prev" НЕ актуальны,турнир выпал из квотообразующих во время одного из прошлых сезонов)
-            # сохранить запрос в файл "curr"
-            # удалить суффиксы "curr" и "prev" из имен файлов
-            # выполнить действия из условия: в каталоге нет файлов "curr" и "prev"
-            # если есть файл по YY-YY дублирующий только что созданный "prev"
-                # удалить этот файл без суффикса
+    # if calc_date <= Last из "curr" ("curr" актуальный)    +
+        # pass  +
+    # else calc_date > Last из "curr" (наступила дата Last +1 ИЛИ турнир выпадал из квотообразующих и возобновляется)   +
+        # запрос season = "curr"        +
+        # if отсутствует round: Final или его status: short: не FT / AET / PEN / CANC / AWD / WO    +
+            # сохранить запрос в файл "curr"                +
+            # if season "curr" -1 > season "prev"           +
+                # удалить из имени файла суффикс "prev"     +
+                # запрос season "curr" -1                   +
+                # сохранить запрос в файле "prev"           +
+        # elif есть round: Final и status: short: FT / AET / PEN / CANC / AWD / WO      +   ("curr" и "prev" НЕ актуальны,турнир выпал из квотообразующих во время одного из прошлых сезонов)
+            # сохранить запрос в файл "curr"                                            +
+            # удалить суффиксы "curr" и "prev" из имен файлов                           +
+            # выполнить действия из условия: в каталоге нет файлов "curr" и "prev"      +
+            # если есть файл по YY-YY дублирующий только что созданный "prev"           +
+                # удалить этот файл без суффикса                                        +
 # скорее всего 1 запрос для выхода из межсезонья, макс 3 запроса для возобновления турнира
-# elif в каталоге есть только "prev" (актуальный или нет)
-    # if calc.date < First +год +месяц "prev"
-        # pass
+# elif в каталоге есть только "prev" (актуальный или нет)   +
+    # if calc.date < First +год +месяц "prev"   +
+        # pass                                  +
     # else calc.date >= First +год +месяц "prev"
         # запрос season = calc_date.year
-        # if results != 0: (сезон начался)
-            # сохранить запрос в файл "curr"
-            # if season "curr" -1 > season "prev"
-                # удалить из имени файла суффикс "prev"
-                # запрос season "curr" -1
-                # сохранить запрос в файл "prev"
-        # else results == 0: (сезон не начался или запрос весной, а файл старого сезона)
+        # if results != 0: (сезон начался)                  +
+            # сохранить запрос в файл "curr"                +
+            # if season "curr" -1 > season "prev"           +
+                # удалить из имени файла суффикс "prev"     +
+                # запрос season "curr" -1                   +
+                # сохранить запрос в файл "prev"            +
+        # else results == 0: (сезон не начался или запрос весной, а файл старого сезона)    +
             # запрос season = calc_date.year -1
-            # if отсутствует round: Final или его status: short: не FT / AET / PEN / CANC / AWD / WO (запрос весной, а файл старого сезона)
-                # сохранить запрос season = calc_date.year -1 в файл "curr"
-                # if season "curr" -1 > season "prev"
-                    # удалить из имени файла суффикс "prev"
-                    # запрос season "curr" -1
-                    # сохранить запрос в файл "prev"
-            # elif есть round: Final и status: short: FT / AET / PEN / CANC / AWD / WO (сезон не начался)
-                # if season "prev" < calc_date.year -1
-                    # удалить из имени файла суффикс "prev"
-                    # сохранить запрос в файл "prev"
+            # if отсутствует round: Final или его status: short: не FT / AET / PEN / CANC / AWD / WO (запрос весной, а файл старого сезона)     +
+                # сохранить запрос season = calc_date.year -1 в файл "curr"     +
+                # if season "curr" -1 > season "prev"                           +
+                    # удалить из имени файла суффикс "prev"                     +
+                    # запрос season "curr" -1                                   +
+                    # сохранить запрос в файл "prev"                            +
+            # elif есть round: Final и status: short: FT / AET / PEN / CANC / AWD / WO (сезон не начался)   +
+                # if season "prev" < calc_date.year -1          +
+                    # удалить из имени файла суффикс "prev"     +
+                    # сохранить запрос в файл "prev"            +
 # ИТОГО: 3 запроса в начале, 1 запрос в 20 дней для поддержания турнира, макс 4 запроса один раз для возобновления турнира
 
 
@@ -207,7 +208,7 @@ def func_cup_files(Cup, calc_date):
             Last_date = mod_api_request.CupLast(curr_file)
             if Last_date == "pass":   # приводит к ожиданию следующего workflow для перерасчета этого кубка
                 return("pass")
-            if calc_date <= Last_date
+            if calc_date <= Last_date:
                 return("pass")  # файлы актуальны, последний известный матч еще не сыгран
             else:   # else calc_date > Last из "curr" (наступила дата Last +1 ИЛИ турнир выпадал из квотообразующих и возобновляется)
                 # запрос season = "curr"
@@ -355,7 +356,8 @@ def func_cup_files(Cup, calc_date):
         return("pass")   # приводит к ожиданию следующего workflow для перерасчета этого кубка
 
 # # вспомогательные переменные и вызов функции (удалить после тестирования)
+# import datetime
 # Cup = "ENG Cup"     # в соответствии с AssType словаря из mod_Nat_tournaments
-# calc_date = datetime.datetime(2024, 1, 1)
+# calc_date = datetime.datetime(2024, 1, 3)
 # if func_cup_files(Cup, calc_date) == "pass":
 #     print("ожидание следующего workflow")

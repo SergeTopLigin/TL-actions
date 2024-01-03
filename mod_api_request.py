@@ -5,6 +5,7 @@
 def CupIsFinished(answer):    # функция определяет закончен ли сезон в кубке
 # сезон закончен, если есть round: Final и его status: short: FT / AET / PEN / CANC / AWD / WO
 # параметр: ответ на апи запрос fixtures в формате строки
+    import traceback
     import datetime     # модуль для определния текущей даты
     DateNow = str(datetime.datetime.utcnow())[:19].replace(":", "-")    # текущая дата по UTC, отформатированная под строку для имени файла
     try:    # обработка исключений для определения ошибки и записи ее в bug_file в блоке except
@@ -12,8 +13,8 @@ def CupIsFinished(answer):    # функция определяет законч
         answer_dict = json.loads(answer)
         completion_status = ["FT", "AET", "PEN", "CANC", "AWD", "WO"]   # список статусов, обозначающих завершение матча
         # сезон закончен, если есть round: Final и его status: short: FT / AET / PEN / CANC / AWD / WO
-        if line_dict["response"][-1]["league"]["round"] == "Final" and \
-            line_dict["response"][-1]["fixture"]["status"]["short"] in completion_status:
+        if answer_dict["response"][-1]["league"]["round"] == "Final" and \
+            answer_dict["response"][-1]["fixture"]["status"]["short"] in completion_status:
             return("finished")
         else:
             return("in_progress")
@@ -24,13 +25,18 @@ def CupIsFinished(answer):    # функция определяет законч
 
 
 def CupLast(answer):    # функция определяет дату последнего известного матча кубка
+    import traceback
     import datetime     # модуль для определния текущей даты
     DateNow = str(datetime.datetime.utcnow())[:19].replace(":", "-")    # текущая дата по UTC, отформатированная под строку для имени файла
     try:    # обработка исключений для определения ошибки и записи ее в bug_file в блоке except
         import json     # модуль формирование словаря из строки
         answer_dict = json.loads(answer)
-        last_date = answer_dict["response"][-1]["fixture"]["date"][:10]
-        last_date = datetime.datetime(int(last_date[:4]), int(last_date[5:7]), int(last_date[8:10]))
+        last_date = datetime.datetime(2000, 1, 1)
+        for fixture in answer_dict["response"]:
+            fixt_date = fixture["fixture"]["date"]
+            fixt_date = datetime.datetime(int(fixt_date[:4]), int(fixt_date[5:7]), int(fixt_date[8:10]))
+            if fixt_date > last_date:
+                last_date = fixt_date
         return(last_date)
     except: 
         with open("bug_files\\"+DateNow+".txt", 'w') as f:
@@ -39,13 +45,18 @@ def CupLast(answer):    # функция определяет дату посл�
 
 
 def CupFirst(answer):    # функция определяет дату первого матча кубка
+    import traceback
     import datetime     # модуль для определния текущей даты
     DateNow = str(datetime.datetime.utcnow())[:19].replace(":", "-")    # текущая дата по UTC, отформатированная под строку для имени файла
     try:    # обработка исключений для определения ошибки и записи ее в bug_file в блоке except
         import json     # модуль формирование словаря из строки
         answer_dict = json.loads(answer)
-        first_date = answer_dict["response"][0]["fixture"]["date"][:10]
-        first_date = datetime.datetime(int(first_date[:4]), int(first_date[5:7]), int(first_date[8:10]))
+        first_date = datetime.datetime(2100, 1, 1)
+        for fixture in answer_dict["response"]:
+            fixt_date = fixture["fixture"]["date"]
+            fixt_date = datetime.datetime(int(fixt_date[:4]), int(fixt_date[5:7]), int(fixt_date[8:10]))
+            if fixt_date < first_date:
+                first_date = fixt_date
         return(first_date)
     except: 
         with open("bug_files\\"+DateNow+".txt", 'w') as f:
