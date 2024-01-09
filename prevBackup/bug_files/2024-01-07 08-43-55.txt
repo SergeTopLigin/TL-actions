@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "C:\Users\Серж\Desktop\TopLiga\!new realities\TL_work\MAIN\Hub\02 initial standings.py", line 365, in <module>
+    mod_cup_files.func_cup_files(tourn[0], calc_date)   # актуализация файлов кубков
+NameError: name 'mod_cup_files' is not defined

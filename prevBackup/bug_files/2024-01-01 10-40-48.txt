@@ -1,0 +1,13 @@
+Traceback (most recent call last):
+  File "C:\Users\Серж\Desktop\TopLiga\!new realities\TL_work\MAIN\Hub\mod_api_request.py", line 15, in CupIsFinished
+    if line_dict["response"][-1]["league"]["round"] == "Final" and \
+NameError: name 'line_dict' is not defined
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Серж\Desktop\TopLiga\!new realities\TL_work\MAIN\Hub\mod_cup_files.py", line 184, in func_cup_files
+    Cup_status = mod_api_request.CupIsFinished(api_date_prev_year)
+  File "C:\Users\Серж\Desktop\TopLiga\!new realities\TL_work\MAIN\Hub\mod_api_request.py", line 22, in CupIsFinished
+    traceback.print_exc(file=f)     # создание файла ошибки с указанием файла кода и строки в необходимой
+NameError: name 'traceback' is not defined
