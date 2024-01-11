@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "C:\Users\Серж\Desktop\TopLiga\!new realities\TL_work\MAIN\UEFA_club_coef_parse_TLstandings.py", line 175, in <module>
+    repo.create_file("TLstandings_fromUEFAcoef.txt", "TL standings from current UEFA ranking without >1/365>", TL_standings_str[:-1], branch="main")
+  File "C:\Users\Серж\AppData\Local\Programs\Python\Python310\lib\site-packages\github\Repository.py", line 2405, in create_file
+    headers, data = self._requester.requestJsonAndCheck(
+  File "C:\Users\Серж\AppData\Local\Programs\Python\Python310\lib\site-packages\github\Requester.py", line 494, in requestJsonAndCheck
+    return self.__check(*self.requestJson(verb, url, parameters, headers, input, self.__customConnection(url)))
+  File "C:\Users\Серж\AppData\Local\Programs\Python\Python310\lib\site-packages\github\Requester.py", line 525, in __check
+    raise self.createException(status, responseHeaders, data)
+github.GithubException.GithubException: 422 {"message": "Invalid request.\n\n\"sha\" wasn't supplied.", "documentation_url": "https://docs.github.com/rest/repos/contents#create-or-update-file-contents"}
