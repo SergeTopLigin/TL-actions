@@ -172,10 +172,19 @@ try:    # обработка исключений для определения 
         # сортировка TLstandings по убыванию: словаря по значению
         TL_standings = dict(sorted(UEFA50.items(), key=lambda x: x[1], reverse=True))
 
+        # приведение словаря TL_standings к виду {club:[TL_rank,visual_rank]} 
+        # с установкой визуально понятного рейтинга - в диапазоне 0-100 между 1-м и последним клубом
+        TL_max = max(TL_standings.values())
+        TL_min = min(TL_standings.values())
+        for club in TL_standings:
+            TL_rank = TL_standings[club]
+            visual_rank = round(100 * (TL_standings[club] - TL_min) / (TL_max - TL_min), 0)
+            TL_standings[club] = [TL_rank, visual_rank]
+
         # вывод в .txt в репозиторий
         TL_standings_str = ''   # github принимает только str для записи в файл
         for club in TL_standings:
-            TL_standings_str += "{0:5.2f}  {1:2}".format(TL_standings[club], club) + '\n'
+            TL_standings_str += "{0:3.0f}  {1:20} {2:5.2f}".format(TL_standings[club][1], club, TL_standings[club][0]) + '\n'
             # при передаче в github срезом [:-1] удалить последнюю \n
             # TL_standings_str += club + '   ' + str(TL_standings[club]) + '\n'
         all_contents = repo.get_contents("")    # если в репозитории есть этот файл - сделать его update
