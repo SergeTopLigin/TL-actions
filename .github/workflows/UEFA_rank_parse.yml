@@ -2,17 +2,15 @@
 name: UEFA_rank_parse
 
 on:
+  workflow_dispatch:
   schedule:
     - cron: '14 */6 * * *'
-   # workflow_dispatch:
   
 jobs:
   build: # job_id
     runs-on: ubuntu-latest
     
     steps:
-    #  - name: python check preset  # проверка версии python, предустановленой на вирт машине
-    #    run: python --version  
       - name: repo checkout  # загрузка содержимого корня репозитория на вирт машину
         uses: actions/checkout@v4  
       - name: list current folder  # отобразить содержимое текущей директории (команда терминала Ubuntu)
