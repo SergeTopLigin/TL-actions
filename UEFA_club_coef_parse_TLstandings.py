@@ -184,7 +184,7 @@ try:    # обработка исключений для определения 
         # вывод в .txt в репозиторий
         TL_standings_str = ''   # github принимает только str для записи в файл
         for club in TL_standings:
-            TL_standings_str += "{0:3.0f}  {1:20} {2:5.2f}".format(TL_standings[club][1], club, TL_standings[club][0]) + '\n'
+            TL_standings_str += "{0:20}   {2:3.0f}   {1:5.2f}".format(club, TL_standings[club][0], TL_standings[club][1]) + '\n'
             # при передаче в github срезом [:-1] удалить последнюю \n
             # TL_standings_str += club + '   ' + str(TL_standings[club]) + '\n'
         all_contents = repo.get_contents("")    # если в репозитории есть этот файл - сделать его update
