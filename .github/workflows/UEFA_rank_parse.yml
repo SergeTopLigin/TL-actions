@@ -1,5 +1,5 @@
 # GitHubActions запускает Python, который создает файл в репозиторий
-name: realize
+name: U
 
 on:
   schedule:
