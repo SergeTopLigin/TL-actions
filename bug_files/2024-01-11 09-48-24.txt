@@ -1,6 +1,0 @@
-Traceback (most recent call last):
-  File "C:\Users\Серж\Desktop\TopLiga\!new realities\TL_work\MAIN\UEFA_club_coef_parse_TLstandings.py", line 173, in <module>
-    repo.create_file("TLstandings_fromUEFAcoef.txt", "TL standings from current UEFA ranking without >1/365>", TL_standings, branch="main")
-  File "C:\Users\Серж\AppData\Local\Programs\Python\Python310\lib\site-packages\github\Repository.py", line 2388, in create_file
-    assert isinstance(content, (str, bytes))
-AssertionError
