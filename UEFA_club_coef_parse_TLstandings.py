@@ -181,7 +181,7 @@ try:    # обработка исключений для определения 
         all_contents = repo.get_contents("")    # если в репозитории есть этот файл - сделать его update
         if "TLstandings_fromUEFAcoef.txt" in str(all_contents):
             contents = repo.get_contents("TLstandings_fromUEFAcoef.txt", ref="main")
-            repo.update_file(contents.path, "TL standings from current UEFA ranking without >1/365>", TL_standings_str[:-1], contents.sha, branch="main")
+            repo.update_file(contents.path, "TL standings from current UEFA ranking without >1/365>", "proba", contents.sha, branch="main")
         else:   # иначе создать файл
             repo.create_file("TLstandings_fromUEFAcoef.txt", "TL standings from current UEFA ranking without >1/365>", TL_standings_str[:-1], branch="main")
 
