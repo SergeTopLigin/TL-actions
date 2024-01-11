@@ -1,0 +1,21 @@
+# GitHubActions запускает Python, который создает файл в репозиторий
+name: GHa-PY-GH
+
+on:
+  workflow_dispatch:
+  
+jobs:
+  build: # job_id
+    runs-on: ubuntu-latest
+    
+    steps:
+    #  - name: python check preset  # проверка версии python, предустановленой на вирт машине
+    #    run: python --version  
+      - name: repo checkout  # загрузка содержимого корня репозитория на вирт машину
+        uses: actions/checkout@v4  
+      - name: list current folder  # отобразить содержимое текущей директории (команда терминала Ubuntu)
+        run: ls  
+      - name: install PyGithub
+        run: pip install PyGithub
+      - name: Run script  # выполнить файл на языке
+        run: python PY_GH.py
