@@ -1,1 +1,50 @@
-proba
+ 2.20  Manchester City
+ 2.04  Bayern Munich
+ 1.62  Real Madrid
+ 1.13  Paris Saint Germain
+ 1.10  Liverpool
+ 0.84  Inter
+ 0.74  RB Leipzig
+ 0.74  Chelsea
+ 0.61  Manchester United
+ 0.58  AS Roma
+ 0.39  Borussia Dortmund
+ 0.39  Barcelona
+ 0.35  Sevilla
+ 0.35  Atletico Madrid
+ 0.22  Villarreal
+ 0.22  Juventus
+ 0.19  Napoli
+ 0.16  Bayer Leverkusen
+ 0.06  FC Porto
+-0.03  Benfica
+-0.16  Arsenal
+-0.16  Atalanta
+-0.23  Ajax
+-0.26  West Ham
+-0.33  Shakhtar Donetsk
+-0.36  Rangers
+-0.42  Eintracht Frankfurt
+-0.52  Feyenoord
+-0.55  Club Brugge KV
+-0.62  Tottenham
+-0.65  PSV Eindhoven
+-0.65  Slavia Praha
+-0.65  AC Milan
+-0.67  Sporting CP
+-0.68  Lazio
+-0.68  FC Basel 1893
+-0.70  FC Copenhagen
+-0.71  Real Sociedad
+-0.75  AZ Alkmaar
+-0.75  Red Bull Salzburg
+-0.78  SC Braga
+-0.81  Dinamo Zagreb
+-0.91  Gent
+-0.94  Lyon
+-0.97  Rennes
+-1.01  Lille
+-1.07  Marseille
+-1.07  FK Crvena Zvezda
+-1.17  Lask Linz
+-1.20  Olympiakos Piraeus
