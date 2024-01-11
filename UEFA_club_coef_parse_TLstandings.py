@@ -137,7 +137,7 @@ try:    # обработка исключений для определения 
         for club in UEFA50:
             find_club = 0
             for file in os.listdir('standings/'):  
-                with open("standings\\"+file, 'r') as f:
+                with open("standings/"+file, 'r') as f:
                     for line in f:  # цикл по строкам
                         end_substr = 0
                         while True:     # бесконечный цикл
@@ -151,9 +151,13 @@ try:    # обработка исключений для определения 
                 if find_club == 1:
                     break
             if find_club == 0:
-                with open("bug_files\\"+DateNow+".txt", 'w', errors='replace') as f:
-                    traceback.print_stack(file=f)
+                with open("bug_file.txt", 'w', errors='replace') as f:
+                    traceback.print_stack(file=f)     # создание на вирт машине файла ошибки с указанием файла кода и строки
                     f.write(club+'   имя клуба не соответсвует apisports, внести в раздел "преобразование"')
+                with open("bug_file.txt", 'r') as f:
+                    bug_info = f.read()             # чтение ошибки в переменную для дальнейшего импорта при создании файла в репозиторие
+                repo.create_file("bug_files/"+DateNow+".txt", "bug_file", bug_info, branch="main")
+
 
         # расчет TLstandings initial
         # (UEFA_club - UEFA_min) * (TL_max(2.2) - TL_min(-1.2)) / (UEFA_max - UEFA_min) - 1.2
