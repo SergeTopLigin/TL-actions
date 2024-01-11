@@ -1,5 +1,5 @@
 # GitHubActions запускает Python, который создает файл в репозиторий
-name: GHa-PY-GH
+name: realize
 
 on:
   workflow_dispatch:
@@ -18,4 +18,4 @@ jobs:
       - name: install PyGithub
         run: pip install PyGithub
       - name: Run script  # выполнить файл на языке
-        run: python PY_GH.py
+        run: python UEFA_club_coef_parse_TLstandings.py
