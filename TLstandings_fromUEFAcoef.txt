@@ -1,0 +1,50 @@
+Manchester City   2.2
+Bayern Munich   2.04
+Real Madrid   1.62
+Paris Saint Germain   1.13
+Liverpool   1.1
+Inter   0.84
+RB Leipzig   0.74
+Chelsea   0.74
+Manchester United   0.61
+AS Roma   0.58
+Borussia Dortmund   0.39
+Barcelona   0.39
+Sevilla   0.35
+Atletico Madrid   0.35
+Villarreal   0.22
+Juventus   0.22
+Napoli   0.19
+Bayer Leverkusen   0.16
+FC Porto   0.06
+Benfica   -0.03
+Arsenal   -0.16
+Atalanta   -0.16
+Ajax   -0.23
+West Ham   -0.26
+Shakhtar Donetsk   -0.33
+Rangers   -0.36
+Eintracht Frankfurt   -0.42
+Feyenoord   -0.52
+Club Brugge KV   -0.55
+Tottenham   -0.62
+PSV Eindhoven   -0.65
+Slavia Praha   -0.65
+AC Milan   -0.65
+Sporting CP   -0.67
+Lazio   -0.68
+FC Basel 1893   -0.68
+FC Copenhagen   -0.7
+Real Sociedad   -0.71
+AZ Alkmaar   -0.75
+Red Bull Salzburg   -0.75
+SC Braga   -0.78
+Dinamo Zagreb   -0.81
+Gent   -0.91
+Lyon   -0.94
+Rennes   -0.97
+Lille   -1.01
+Marseille   -1.07
+FK Crvena Zvezda   -1.07
+Lask Linz   -1.17
+Olympiakos Piraeus   -1.2
