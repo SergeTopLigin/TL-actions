@@ -1,50 +1,50 @@
- 2.20  Manchester City
- 2.04  Bayern Munich
- 1.62  Real Madrid
- 1.13  Paris Saint Germain
- 1.10  Liverpool
- 0.84  Inter
- 0.74  RB Leipzig
- 0.74  Chelsea
- 0.61  Manchester United
- 0.58  AS Roma
- 0.39  Borussia Dortmund
- 0.39  Barcelona
- 0.35  Sevilla
- 0.35  Atletico Madrid
- 0.22  Villarreal
- 0.22  Juventus
- 0.19  Napoli
- 0.16  Bayer Leverkusen
- 0.06  FC Porto
--0.03  Benfica
--0.16  Arsenal
--0.16  Atalanta
--0.23  Ajax
--0.26  West Ham
--0.33  Shakhtar Donetsk
--0.36  Rangers
--0.42  Eintracht Frankfurt
--0.52  Feyenoord
--0.55  Club Brugge KV
--0.62  Tottenham
--0.65  PSV Eindhoven
--0.65  Slavia Praha
--0.65  AC Milan
--0.67  Sporting CP
--0.68  Lazio
--0.68  FC Basel 1893
--0.70  FC Copenhagen
--0.71  Real Sociedad
--0.75  AZ Alkmaar
--0.75  Red Bull Salzburg
--0.78  SC Braga
--0.81  Dinamo Zagreb
--0.91  Gent
--0.94  Lyon
--0.97  Rennes
--1.01  Lille
--1.07  Marseille
--1.07  FK Crvena Zvezda
--1.17  Lask Linz
--1.20  Olympiakos Piraeus
+100  Manchester City       2.20
+ 95  Bayern Munich         2.04
+ 83  Real Madrid           1.62
+ 69  Paris Saint Germain   1.13
+ 68  Liverpool             1.10
+ 60  Inter                 0.84
+ 57  RB Leipzig            0.74
+ 57  Chelsea               0.74
+ 53  Manchester United     0.61
+ 52  AS Roma               0.58
+ 47  Borussia Dortmund     0.39
+ 47  Barcelona             0.39
+ 46  Sevilla               0.35
+ 46  Atletico Madrid       0.35
+ 42  Villarreal            0.22
+ 42  Juventus              0.22
+ 41  Napoli                0.19
+ 40  Bayer Leverkusen      0.16
+ 37  FC Porto              0.06
+ 34  Benfica              -0.03
+ 31  Arsenal              -0.16
+ 31  Atalanta             -0.16
+ 29  Ajax                 -0.23
+ 28  West Ham             -0.26
+ 26  Shakhtar Donetsk     -0.33
+ 25  Rangers              -0.36
+ 23  Eintracht Frankfurt  -0.42
+ 20  Feyenoord            -0.52
+ 19  Club Brugge KV       -0.55
+ 17  Tottenham            -0.62
+ 16  PSV Eindhoven        -0.65
+ 16  Slavia Praha         -0.65
+ 16  AC Milan             -0.65
+ 16  Sporting CP          -0.67
+ 15  Lazio                -0.68
+ 15  FC Basel 1893        -0.68
+ 15  FC Copenhagen        -0.70
+ 14  Real Sociedad        -0.71
+ 13  AZ Alkmaar           -0.75
+ 13  Red Bull Salzburg    -0.75
+ 12  SC Braga             -0.78
+ 11  Dinamo Zagreb        -0.81
+  9  Gent                 -0.91
+  8  Lyon                 -0.94
+  7  Rennes               -0.97
+  6  Lille                -1.01
+  4  Marseille            -1.07
+  4  FK Crvena Zvezda     -1.07
+  1  Lask Linz            -1.17
+  0  Olympiakos Piraeus   -1.20
