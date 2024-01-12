@@ -4,7 +4,8 @@ name: UEFA_rank_parse
 on:
   workflow_dispatch:
   schedule:
-    - cron: '14 */6 * * *'
+    - cron: '14 4 * * 0-6'
+    # - cron: '14 */6 * * *'
   
 jobs:
   build: # job_id
