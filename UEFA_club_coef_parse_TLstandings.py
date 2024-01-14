@@ -181,18 +181,22 @@ try:    # обработка исключений для определения 
             visual_rank = round(100 * (TL_standings[club] - TL_min) / (TL_max - TL_min), 0)
             TL_standings[club] = [TL_rank, visual_rank]
 
-        # вывод в .txt в репозиторий
+        # формирование строки из словаря в читабельном виде
         TL_standings_str = ''   # github принимает только str для записи в файл
         for club in TL_standings:
             TL_standings_str += "{0:20}   {2:3.0f}   {1:5.2f}".format(club, TL_standings[club][0], TL_standings[club][1]) + '\n'
-            # при передаче в github срезом [:-1] удалить последнюю \n
-            # TL_standings_str += club + '   ' + str(TL_standings[club]) + '\n'
+        # формирование в конце строки списка для передачи в дальнейшие расчеты
+        TL_standings_str += '\noutput list['
+        for club in TL_standings:
+            TL_standings_str += '["'+club+'", '+TL_standings[club][0]+', '+TL_standings[club][1]+'],'
+        TL_standings_str = TL_standings_str[:-1] + ']'      # удаление последней запятой
+        # вывод строки в .txt в репозиторий
         all_contents = repo.get_contents("")    # если в репозитории есть этот файл - сделать его update
         if "TLstandings_fromUEFAcoef.txt" in str(all_contents):
             contents = repo.get_contents("TLstandings_fromUEFAcoef.txt", ref="main")
-            repo.update_file(contents.path, "TL standings from current UEFA ranking without >1/365>", TL_standings_str[:-1], contents.sha, branch="main")
+            repo.update_file(contents.path, "TL standings from current UEFA ranking without >1/365>", TL_standings_str, contents.sha, branch="main")
         else:   # иначе создать файл
-            repo.create_file("TLstandings_fromUEFAcoef.txt", "TL standings from current UEFA ranking without >1/365>", TL_standings_str[:-1], branch="main")
+            repo.create_file("TLstandings_fromUEFAcoef.txt", "TL standings from current UEFA ranking without >1/365>", TL_standings_str, branch="main")
 
         # for club in TL_standings:
         #     print(club,'   ',TL_standings[club])
