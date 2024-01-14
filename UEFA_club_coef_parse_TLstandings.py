@@ -188,7 +188,7 @@ try:    # обработка исключений для определения 
         # формирование в конце строки списка для передачи в дальнейшие расчеты
         TL_standings_str += '\noutput list['
         for club in TL_standings:
-            TL_standings_str += '["'+club+'", '+str(TL_standings[club][0])+', '+str(TL_standings[club][1])+'],'
+            TL_standings_str += '['+club+', '+str(TL_standings[club][0])+', '+str(TL_standings[club][1])+'],'
         TL_standings_str = TL_standings_str[:-1] + ']'      # удаление последней запятой
         # вывод строки в .txt в репозиторий
         all_contents = repo.get_contents("")    # если в репозитории есть этот файл - сделать его update
