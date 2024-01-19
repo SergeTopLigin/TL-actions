@@ -1,3 +1,8 @@
+name: upload_artifact
+
+on:
+  workflow_dispatch:
+  
 jobs:
   example-job:
     name: Save output
