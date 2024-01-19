@@ -16,3 +16,5 @@ jobs:
         with:
           name: output-log-file
           path: output.log
+      - name: list current folder
+        run: ls
