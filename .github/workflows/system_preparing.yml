@@ -8,11 +8,11 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-      - name: python check preset
-        run: python --version
-#       - uses: actions/checkout@v4
-#       - name: list current folder
-#         run: ls
+      # - name: python check preset
+      #   run: python --version
+      - uses: actions/checkout@v4
+      - name: list current folder
+        run: ls
 #       - name: Run script
 #         run: python proba.py
 # # запуск скрипта и выгрузка результата в файл (артефакт)
