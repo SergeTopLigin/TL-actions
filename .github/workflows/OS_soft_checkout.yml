@@ -1,5 +1,5 @@
 # GitHubActions запускает Python, который создает файл в репозиторий
-name: UEFA_rank_parse
+name: OS_soft_checkout
 
 on:
   workflow_dispatch:
