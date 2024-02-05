@@ -12,10 +12,14 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-      - name: repo checkout  # загрузка содержимого корня репозитория на вирт машину
-        uses: actions/checkout@v4  
-      - name: list current folder  # отобразить содержимое текущей директории (команда терминала Ubuntu)
-        run: ls  
+      - name: Set up Python 3.10  # установка версии окружения
+        uses: actions/setup-python@0a5c61591373683505ea898e09a3ea4f39ef2b9c
+        with:
+          python-version: "3.10"
+      - name: repo checkout  # загрузка содержимого репозитория на вирт машину
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11  
+      - name: list current folder  # проверка загрузки
+        run: ls
       - name: install PyGithub  # библиотека для работы с репозиторием GitHub
         run: pip install PyGithub
       - name: install beautifulsoup4  # библиотека для парсинга сайта (UEFA_club_coef_parse_TLstandings.py)
