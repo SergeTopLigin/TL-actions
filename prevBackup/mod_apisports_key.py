@@ -9,7 +9,7 @@ def api_key(api_request):
         conn = http.client.HTTPSConnection("v3.football.api-sports.io")
 
         headers = {
-            'x-apisports-key': "e4531fe674bb4eaab280d63fed977b07"
+            'x-apisports-key': ""
             }
 
         conn.request("GET", api_request, headers=headers)
