@@ -23,8 +23,8 @@ jobs:
       - run: pwd
       # setup Python 3.10.11 from tar
       - run: tar -xvzf Python-3.10.11.tgz
-      - run: cd standings
-      - run: ls
+      # - run: cd standings
+      - run: ls -l
       - run: pwd
       #- run: ./configure
       #- run: make
