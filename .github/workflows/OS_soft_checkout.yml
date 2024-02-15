@@ -25,11 +25,8 @@ jobs:
         run: tar -xvzf Python-3.10.11.tgz
       - name: setup Python 3.10.11 from tar
         run: |
-          pwd
-          ls
           ./configure
           make
-          make test
           sudo make install
           make clean 
         working-directory: ./Python-3.10.11
