@@ -28,6 +28,5 @@ jobs:
           ./configure
           make
           sudo make install
-          make clean 
         working-directory: ./Python-3.10.11
       - run: python --version
