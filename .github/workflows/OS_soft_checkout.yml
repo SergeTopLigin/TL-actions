@@ -21,17 +21,16 @@ jobs:
         uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11  
       - run: ls
       - run: pwd
-      # setup Python 3.10.11 from tar
-      - run: tar -xvzf Python-3.10.11.tgz
-      # - run: chmod +x Python-3.10.11
-      # - run: cd Python-3.10.11
-      - run: ls
+      - name: unzip Python-3.10.11
+        run: tar -xvzf Python-3.10.11.tgz
+      - name: setup Python 3.10.11 from tar
+        run: |
+          pwd
+          ls
+          ./configure
+          make
+          make test
+          sudo make install
+          make clean 
         working-directory: ./Python-3.10.11
-      - run: pwd
-        working-directory: ./Python-3.10.11
-      #- run: ./configure
-      #- run: make
-      #- run: make test
-      #- run: sudo make install
-      #- run: make clean        
-      #- run: python --version
+      - run: python --version
