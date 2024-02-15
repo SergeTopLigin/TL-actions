@@ -1,4 +1,3 @@
-# GitHubActions запускает Python, который создает файл в репозиторий
 name: OS_soft_checkout
 
 on:
@@ -13,20 +12,10 @@ jobs:
     
     steps:
       - run: python --version
-      # - name: Set up Python 3.10.11  # установка версии окружения
-      #   uses: actions/setup-python@0a5c61591373683505ea898e09a3ea4f39ef2b9c
-      #   with:
-      #     python-version: "3.10.11"
+      - name: Set up Python 3.10  # установка версии окружения
+        uses: actions/setup-python@0a5c61591373683505ea898e09a3ea4f39ef2b9c
+        with:
+          python-version: "3.10"
       - name: repo checkout  # загрузка содержимого репозитория на вирт машину
         uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11  
-      - run: ls
-      - run: pwd
-      - name: unzip Python-3.10.11
-        run: tar -xvzf Python-3.10.11.tgz
-      - name: setup Python 3.10.11 from tar
-        run: |
-          ./configure
-          make
-          sudo make install
-        working-directory: ./Python-3.10.11
       - run: python --version
