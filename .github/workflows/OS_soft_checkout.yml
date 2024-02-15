@@ -23,9 +23,10 @@ jobs:
       - run: pwd
       # setup Python 3.10.11 from tar
       - run: tar -xvzf Python-3.10.11.tgz
-      - run: chmod +x Python-3.10.11
-      - run: cd -P -e Python-3.10.11
-      - run: ls -l
+      - run: sudo -i
+      # - run: chmod +x Python-3.10.11
+      - run: cd Python-3.10.11
+      - run: ls
       - run: pwd
       #- run: ./configure
       #- run: make
