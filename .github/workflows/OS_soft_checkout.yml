@@ -24,9 +24,11 @@ jobs:
       # setup Python 3.10.11 from tar
       - run: tar -xvzf Python-3.10.11.tgz
       # - run: chmod +x Python-3.10.11
-      - run: cd standings
+      # - run: cd Python-3.10.11
       - run: ls
+        working-directory: ./Python-3.10.11
       - run: pwd
+        working-directory: ./Python-3.10.11
       #- run: ./configure
       #- run: make
       #- run: make test
