@@ -11,7 +11,7 @@ jobs:
       - run: date
       - name: Put current date into a variable
         run: |
-          $NOW = "hello"
+          echo "hello" >> $NOW
           echo "NOW=$NOW" >> $GITHUB_ENV
       - name: Use variable
         run: echo "$NOW"
