@@ -21,7 +21,5 @@ jobs:
         run: |
           if ${{ env.NOW < env.UEFAcancel_date }}
           then 
-            echo "now < UEFAcancel"
-          else
-            echo "now => UEFAcancel"
+            python UEFA_club_coef_parse_TLstandings.py
           fi
