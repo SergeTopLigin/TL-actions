@@ -26,5 +26,7 @@ jobs:
             pip install PyGithub
             pip install beautifulsoup4
             python UEFA_club_coef_parse_TLstandings.py
+          else
+            echo "UEFA ranking influence was canceled"
           fi
           
