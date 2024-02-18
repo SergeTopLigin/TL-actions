@@ -7,7 +7,7 @@ jobs:
   build: # job_id
     runs-on: ubuntu-latest
     env:
-      start_date: ${{ vars.UEFA_CANCEL_DATE }}
+      UEFAcancel_date: ${{ vars.UEFA_CANCEL_DATE }}
     
     steps:
       - run: date
@@ -16,12 +16,12 @@ jobs:
       - name: Use variable
         run: |
           echo "$NOW"
-          echo "$start_date"
+          echo "$UEFAcancel_date"
       - name: condition
         run: |
-          if ${{ env.NOW < env.start_date }}
+          if ${{ env.NOW < env.UEFAcancel_date }}
           then 
-            echo "now < start"
+            echo "now < UEFAcancel"
           else
-            echo "now => start"
+            echo "now => UEFAcancel"
           fi
