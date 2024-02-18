@@ -19,4 +19,4 @@ jobs:
           echo "$start_date"
       - name: condition
         run: |
-          if: ${{ env.NOW < env.start_date }}; then echo "now < start"; else echo "now => start"
+          if: [[ ${{ env.NOW < env.start_date }} ]]; then echo "now < start"; else echo "now => start"
