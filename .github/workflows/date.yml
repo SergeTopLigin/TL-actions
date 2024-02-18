@@ -9,3 +9,10 @@ jobs:
     
     steps:
       - run: date
+      - name: Put current date into a variable
+        run: |
+          $NOW=& Get-Date -format yyyy-MM-dd
+          echo "NOW=$NOW" >> $env:GITHUB_ENV
+      - name: Use variable
+        run: |
+          echo "${{env.NOW}}"      
