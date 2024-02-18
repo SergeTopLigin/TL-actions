@@ -1,0 +1,11 @@
+name: date
+
+on:
+  workflow_dispatch:
+  
+jobs:
+  build: # job_id
+    runs-on: ubuntu-latest
+    
+    steps:
+      - echo: hello
