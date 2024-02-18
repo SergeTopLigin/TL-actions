@@ -6,12 +6,15 @@ on:
 jobs:
   build: # job_id
     runs-on: ubuntu-latest
+    env:
+      start_date: '2024-03-01'
     
     steps:
       - run: date
       - name: Put current date into a variable
         run: echo "NOW=$(date +"%Y-%m-%d")" >> $GITHUB_ENV
       - name: Use variable
-        run: echo "$NOW"
-        # env:
-        #   NOW: Hello
+        run: |
+          echo "$NOW"
+          echo "$start_date"
+        
