@@ -17,4 +17,6 @@ jobs:
         run: |
           echo "$NOW"
           echo "$start_date"
-        
+      - name: condition
+        if: ${{ $NOW < $start_date }}
+        run: echo "hello"
