@@ -7,7 +7,7 @@ jobs:
   build: # job_id
     runs-on: ubuntu-latest
     env:
-      start_date: ${{ vars.START_DATE }}
+      start_date: ${{ vars.UEFA_CANCEL_DATE }}
     
     steps:
       - run: date
