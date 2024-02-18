@@ -7,7 +7,7 @@ jobs:
   build: # job_id
     runs-on: ubuntu-latest
     env:
-      start_date: ${{ start_date }}
+      start_date: ${{ START_DATE }}
     
     steps:
       - run: date
