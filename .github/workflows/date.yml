@@ -8,4 +8,4 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-      - echo: hello
+      - run: date
